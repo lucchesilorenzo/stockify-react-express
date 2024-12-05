@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  hashedPassword String
+  firstName      String
+  lastName       String
+  dateOfBirth    DateTime?
+  phone          String?   @unique
+  bio            String?
+  address        String?
+  city           String?
+  zipCode        String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  orders     Order[]
+  tasks      Task[]
+  activities Activity[]
+}
+
+model Supplier {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  email     String   @unique
+  phone     String   @unique
+  address   String
+  city      String
+  zipCode   String
+  website   String?  @unique
+  rating    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders Order[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  categoryId  String
+  warehouseId String
+  name        String   @unique
+  slug        String   @unique
+  sku         String   @unique
+  price       Float
+  quantity    Int
+  maxQuantity Int
+  description String?
+  status      String   @default("IN_STOCK")
+  image       String   @default("/placeholder.svg")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  category      Category       @relation(fields: [categoryId], references: [id])
+  warehouse     Warehouse      @relation(fields: [warehouseId], references: [id])
+  orders        Order[]
+  shipmentItems ShipmentItem[]
+}
+
+model Order {
+  id         String   @id @default(cuid())
+  userId     String
+  supplierId String
+  productId  String
+  type       String
+  quantity   Int
+  subtotal   Float
+  shipping   Float
+  tax        Float
+  totalPrice Float
+  status     String   @default("SHIPPED")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id])
+  product  Product  @relation(fields: [productId], references: [id])
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+}
+
+model Warehouse {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  location    String
+  quantity    Int
+  maxQuantity Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products Product[]
+}
+
+model Task {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  status    String
+  priority  String
+  label     String
+  dueDate   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  phone     String   @unique
+  address   String
+  city      String
+  zipCode   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customerShipments CustomerShipment[]
+}
+
+model CustomerShipment {
+  id         String   @id @default(cuid())
+  customerId String
+  status     String   @default("SHIPPED")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  customer      Customer       @relation(fields: [customerId], references: [id])
+  shipmentItems ShipmentItem[]
+}
+
+model ShipmentItem {
+  id                 String @id @default(cuid())
+  productId          String
+  customerShipmentId String
+  quantity           Int
+
+  product          Product          @relation(fields: [productId], references: [id])
+  customerShipment CustomerShipment @relation(fields: [customerShipmentId], references: [id])
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  taxRate   Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products Product[]
+}
+
+model Activity {
+  id        String   @id @default(cuid())
+  userId    String
+  activity  String
+  entity    String
+  product   String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model MonthlyInventoryValue {
+  id         String   @id @default(cuid())
+  month      DateTime @unique
+  totalValue Float
+}
