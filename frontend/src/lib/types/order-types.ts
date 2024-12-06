@@ -1,4 +1,23 @@
-import { Order, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+
+export type Order = {
+  id: string;
+  type: string;
+  product: {
+    name: string;
+  };
+  quantity: number;
+  supplier: {
+    name: string;
+  };
+  status: string;
+  totalPrice: number;
+  createdAt: string;
+  user: {
+    firstName: string;
+    lastName: string;
+  };
+};
 
 export type OrderEssentials = Omit<
   Order,

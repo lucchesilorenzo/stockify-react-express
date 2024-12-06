@@ -336,7 +336,6 @@ export async function createRestockOrder(
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
-    return;
   }
 }
 

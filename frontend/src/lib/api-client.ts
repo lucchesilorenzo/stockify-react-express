@@ -7,7 +7,7 @@ const apiClient = axios.create({
   },
 });
 
-export async function fetchData(endpoint: string) {
+export async function fetchData<T>(endpoint: string): Promise<T> {
   try {
     const response = await apiClient.get(endpoint);
     return response.data;

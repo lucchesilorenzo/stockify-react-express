@@ -1,18 +1,22 @@
+import { useAnalyticsData } from "@/hooks/queries/useAnalyticsData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import AnalyticsInventory from "./AnalyticsInventory";
 import AnalyticsOverview from "./AnalyticsOverview";
+import Spinner from "../common/Spinner";
 
 export default function AnalyticsTabs() {
-  // TODO: get data
-  // const [
-  //   { pieChartData, pieChartConfig },
-  //   monthlyInventoryValues,
-  //   topProducts,
-  // ] = await Promise.all([
-  //   getProductsByCategory(),
-  //   getMonthlyInventoryValues(),
-  //   getTopProducts(),
-  // ]);
+  const [
+    { data: pieChart, isLoading: pieChartDataLoading },
+    { data: monthlyInventoryValues, isLoading: monthlyInventoryValuesLoading },
+    { data: topProducts, isLoading: topProductsLoading },
+  ] = useAnalyticsData();
+
+  const { pieChartData, pieChartConfig } = pieChart || {};
+
+  const isLoading =
+    pieChartDataLoading || monthlyInventoryValuesLoading || topProductsLoading;
+
+  if (isLoading) return <Spinner size="large" />;
 
   return (
     <Tabs defaultValue="overview" className="space-y-4">
@@ -21,7 +25,7 @@ export default function AnalyticsTabs() {
         <TabsTrigger value="inventory">Inventory</TabsTrigger>
       </TabsList>
 
-      {/* <TabsContent value="overview">
+      <TabsContent value="overview">
         <AnalyticsOverview
           pieChartData={pieChartData}
           pieChartConfig={pieChartConfig}
@@ -31,7 +35,7 @@ export default function AnalyticsTabs() {
 
       <TabsContent value="inventory">
         <AnalyticsInventory barChartData={topProducts} />
-      </TabsContent> */}
+      </TabsContent>
     </Tabs>
   );
 }

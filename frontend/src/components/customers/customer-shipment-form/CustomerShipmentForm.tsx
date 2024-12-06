@@ -16,15 +16,15 @@ import {
   shippingFormSchema,
 } from "@/lib/validations/customer-validations";
 
-type CustomerOrderFormProps = {
+type CustomerShipmentFormProps = {
   products: Product[];
   customers: Customer[];
 };
 
-export default function CustomerOrderForm({
+export default function CustomerShipmentForm({
   products,
   customers,
-}: CustomerOrderFormProps) {
+}: CustomerShipmentFormProps) {
   const {
     selectedCustomer,
     handleSelectCustomer,
@@ -69,20 +69,18 @@ export default function CustomerOrderForm({
   }
 
   async function onSubmit(data: TShippingFormSchema) {
-    if (!data.products.length) {
-      toast.error("Please select a product.");
-      return;
-    }
-
-    const result = await createShipmentAction(data);
-    if (result?.message) {
-      toast.error(result?.message);
-      return;
-    }
-
-    handleClearAll();
-    toast.success("Shipment created successfully.");
+    // if (!data.products.length) {
+    //   toast.error("Please select a product.");
+    //   return;
+    // }
+    // const result = await createShipmentAction(data);
+    // if (result?.message) {
+    //   toast.error(result?.message);
+    //   return;
   }
+
+  handleClearAll();
+  toast.success("Shipment created successfully.");
 
   return (
     <form

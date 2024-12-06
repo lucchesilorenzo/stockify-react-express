@@ -1,14 +1,19 @@
-import { columns } from "../tables/customers/columns";
+import { useAvailableProducts } from "@/hooks/queries/useAvailableProducts";
+import { useCustomers } from "@/hooks/queries/useCustomers";
+import Spinner from "../common/Spinner";
 import CustomersTable from "../tables/customers/CustomersTable";
+import { columns } from "../tables/customers/columns";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import CustomerShipmentForm from "./customer-shipment-form/CustomerOrderForm";
+import CustomerShipmentForm from "./customer-shipment-form/CustomerShipmentForm";
 
 export default function CustomerTabs() {
-  // TODO: get data
-  // const [availableProducts, customers] = await Promise.all([
-  //   getAvailableProducts(),
-  //   getCustomers(),
-  // ]);
+  const { data: availableProducts, isLoading: availableProductsLoading } =
+    useAvailableProducts();
+  const { data: customers, isLoading: customersLoading } = useCustomers();
+
+  const isLoading = availableProductsLoading || customersLoading;
+
+  if (isLoading) return <Spinner size="large" />;
 
   return (
     <Tabs defaultValue="prepare-shipment" className="space-y-4">
@@ -20,10 +25,10 @@ export default function CustomerTabs() {
       </TabsList>
 
       <TabsContent value="prepare-shipment">
-        {/* <CustomerShipmentForm
+        <CustomerShipmentForm
           products={availableProducts}
           customers={customers}
-        /> */}
+        />
       </TabsContent>
 
       <TabsContent value="registered-customers">
@@ -34,7 +39,7 @@ export default function CustomerTabs() {
           </p>
         </div>
 
-        {/* <CustomersTable columns={columns} data={customers} /> */}
+        <CustomersTable columns={columns} data={customers} />
       </TabsContent>
     </Tabs>
   );

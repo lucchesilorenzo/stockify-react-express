@@ -3,28 +3,37 @@ import OrderSummaryCard from "@/components/orders/OrderSummaryCard";
 import OrdersActionCard from "@/components/orders/OrdersActionCard";
 import { columns } from "@/components/tables/orders/columns";
 import OrdersTable from "@/components/tables/orders/OrdersTable";
+import { useOrders } from "@/hooks/queries/useOrders";
+import { formatCurrency, formatOrderId } from "@/lib/utils";
+import { format } from "date-fns";
+import { orderStatuses } from "@/lib/data";
+import Spinner from "@/components/common/Spinner";
 
 export default function OrdersPage() {
-  // TODO: get all orders
-  // const [orders, monthlyOrders, weeklyOrders] = await Promise.all([
-  //   getOrders(),
-  //   getMonthlyOrders(),
-  //   getWeeklyOrders(),
-  // ]);
+  const [
+    { data: orders, isLoading: ordersLoading },
+    { data: monthlyOrders, isLoading: monthlyOrdersLoading },
+    { data: weeklyOrders, isLoading: weeklyOrdersLoading },
+  ] = useOrders();
 
-  // const csvData = orders.map((order) => ({
-  //   ID: formatOrderId(order),
-  //   Type: order.type,
-  //   Product: order.product.name,
-  //   Quantity: order.quantity,
-  //   Supplier: order.supplier.name,
-  //   Status:
-  //     orderStatuses.find((o) => o.value === order.status)?.label ||
-  //     order.status,
-  //   Amount: formatCurrency(order.totalPrice),
-  //   Date: format(order.createdAt, "yyyy-MM-dd"),
-  //   Operator: `${order.user.firstName} ${order.user.lastName}`,
-  // }));
+  const isLoading =
+    ordersLoading || monthlyOrdersLoading || weeklyOrdersLoading;
+
+  if (isLoading) return <Spinner size="large" />;
+
+  const csvData = orders.map((order) => ({
+    ID: formatOrderId(order),
+    Type: order.type,
+    Product: order.product.name,
+    Quantity: order.quantity,
+    Supplier: order.supplier.name,
+    Status:
+      orderStatuses.find((o) => o.value === order.status)?.label ||
+      order.status,
+    Amount: formatCurrency(order.totalPrice),
+    Date: format(order.createdAt, "yyyy-MM-dd"),
+    Operator: `${order.user.firstName} ${order.user.lastName}`,
+  }));
 
   return (
     <main>
