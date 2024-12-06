@@ -2,10 +2,10 @@ import { useState, useTransition } from "react";
 
 import { CircleUser } from "lucide-react";
 
-import { MainCommandDialog } from "../common/main-command-dialog";
-import FontSizeSwitcher from "./font-size-switcher";
-import MobileNavigation from "./mobile-navigation";
-import ThemeToggle from "./theme-toggle";
+import { MainCommandDialog } from "../common/MainCommandDialog";
+import FontSizeSwitcher from "./FontSizeSwitcher";
+import MobileNavigation from "./MobileNavigation";
+import ThemeToggle from "./ThemeToggle";
 
 import { Button } from "@/components/ui/button";
 import {

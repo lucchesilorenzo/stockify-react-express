@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { TaskContext } from "@/contexts/task-provider";
+import { TaskContext } from "@/contexts/TaskProvider";
 
 export function useTask() {
   const context = useContext(TaskContext);

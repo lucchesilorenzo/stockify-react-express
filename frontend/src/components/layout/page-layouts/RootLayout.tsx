@@ -1,6 +1,6 @@
 import { Toaster } from "sonner";
-import FontSizeProvider from "@/contexts/font-size-provider";
-import ThemeProvider from "@/contexts/theme-provider";
+import FontSizeProvider from "@/contexts/FontSizeProvider";
+import ThemeProvider from "@/contexts/ThemeProvider";
 import { Outlet } from "react-router-dom";
 
 export default function RootLayout() {

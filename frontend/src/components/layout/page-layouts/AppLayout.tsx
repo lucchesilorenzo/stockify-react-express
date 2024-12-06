@@ -1,13 +1,13 @@
-import Spinner from "@/components/common/spinner";
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
-import Sidebar from "@/components/layout/sidebar";
-import CustomerProvider from "@/contexts/customer-provider";
-import OrderProvider from "@/contexts/order-provider";
-import ProductProvider from "@/contexts/product-provider";
-import TaskProvider from "@/contexts/task-provider";
+import Spinner from "@/components/common/Spinner";
+import Sidebar from "@/components/layout/Sidebar";
+import CustomerProvider from "@/contexts/CustomerProvider";
+import OrderProvider from "@/contexts/OrderProvider";
+import ProductProvider from "@/contexts/ProductProvider";
+import TaskProvider from "@/contexts/TaskProvider";
 import { useMainData } from "@/hooks/queries/useMainData";
 import { Outlet } from "react-router-dom";
+import Header from "../Header";
+import Footer from "../Footer";
 
 export default function AppLayout() {
   const [

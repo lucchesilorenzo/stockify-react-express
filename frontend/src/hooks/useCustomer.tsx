@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { CustomerContext } from "@/contexts/customer-provider";
+import { CustomerContext } from "@/contexts/CustomerProvider";
 
 export function useCustomer() {
   const context = useContext(CustomerContext);

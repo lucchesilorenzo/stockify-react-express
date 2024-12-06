@@ -1,7 +1,7 @@
-import AuthFooter from "@/components/auth/auth-footer";
-import AuthForm from "@/components/auth/auth-form";
-import AuthHeading from "@/components/auth/auth-heading";
-import AuthImage from "@/components/auth/auth-image";
+import AuthFooter from "@/components/auth/AuthFooter";
+import AuthForm from "@/components/auth/AuthForm";
+import AuthHeading from "@/components/auth/AuthHeading";
+import AuthImage from "@/components/auth/AuthImage";
 
 export default function LogInPage() {
   return (

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { OrderContext } from "@/contexts/order-provider";
+import { OrderContext } from "@/contexts/OrderProvider";
 
 export function useOrder() {
   const context = useContext(OrderContext);

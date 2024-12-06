@@ -1,11 +1,9 @@
-"use client";
-
 import { Product } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ChevronsUpDown, Truck } from "lucide-react";
 
-import OrderActions from "@/components/orders/order-actions";
+import OrderActions from "@/components/orders/OrderActions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { orderStatuses } from "@/lib/data";

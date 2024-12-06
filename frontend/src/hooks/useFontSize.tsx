@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { FontSizeContext } from "@/contexts/font-size-provider";
+import { FontSizeContext } from "@/contexts/FontSizeProvider";
 
 export function useFontSize() {
   const context = useContext(FontSizeContext);

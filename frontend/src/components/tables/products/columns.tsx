@@ -1,10 +1,8 @@
-"use client";
-
 import { Product } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronsUpDown } from "lucide-react";
 
-import ProductActions from "@/components/products/product-actions";
+import ProductActions from "@/components/products/ProductActions";
 import { Badge, BadgeProps } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { productStatuses } from "@/lib/data";

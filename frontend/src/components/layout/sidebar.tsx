@@ -1,5 +1,5 @@
-import Logo from "../common/logo";
-import Navigation from "./navigation";
+import Logo from "../common/Logo";
+import Navigation from "./Navigation";
 
 export default function Sidebar() {
   return (

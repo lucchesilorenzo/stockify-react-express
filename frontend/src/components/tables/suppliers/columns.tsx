@@ -4,7 +4,7 @@ import { formatPhoneNumberIntl } from "react-phone-number-input";
 import { toast } from "sonner";
 
 // import { updateSupplierRatingAction } from "@/app/actions/supplier-actions";
-import StarRating from "@/components/common/star-rating";
+import StarRating from "@/components/common/StarRating";
 import { Button } from "@/components/ui/button";
 import { SupplierWithOrderCount } from "@/lib/types";
 import { TSupplierRatingSchema } from "@/lib/validations/supplier-validations";

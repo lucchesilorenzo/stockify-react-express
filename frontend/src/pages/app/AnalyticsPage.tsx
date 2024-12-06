@@ -1,5 +1,5 @@
-import AnalyticsTabs from "@/components/analytics/analytics-tabs";
-import H1 from "@/components/common/h1";
+import AnalyticsTabs from "@/components/analytics/AnalyticsTabs";
+import H1 from "@/components/common/H1";
 
 export default function AnalyticsPage() {
   return (

@@ -1,8 +1,8 @@
-import H1 from "@/components/common/h1";
-import OrderSummaryCard from "@/components/orders/order-summary-card";
-import OrdersActionCard from "@/components/orders/orders-action-card";
+import H1 from "@/components/common/H1";
+import OrderSummaryCard from "@/components/orders/OrderSummaryCard";
+import OrdersActionCard from "@/components/orders/OrdersActionCard";
 import { columns } from "@/components/tables/orders/columns";
-import OrdersTable from "@/components/tables/orders/orders-table";
+import OrdersTable from "@/components/tables/orders/OrdersTable";
 
 export default function OrdersPage() {
   // TODO: get all orders

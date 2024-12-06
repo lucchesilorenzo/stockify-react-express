@@ -1,6 +1,6 @@
-import H1 from "@/components/common/h1";
+import H1 from "@/components/common/H1";
 import { columns } from "@/components/tables/tasks/columns";
-import TasksTable from "@/components/tables/tasks/tasks-table";
+import TasksTable from "@/components/tables/tasks/TasksTable";
 
 export default function TasksPage() {
   // const tasks = await getTasks();

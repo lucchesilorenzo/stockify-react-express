@@ -1,7 +1,7 @@
-import H1 from "@/components/common/h1";
-import SuppliersSummary from "@/components/suppliers/suppliers-summary";
+import H1 from "@/components/common/H1";
+import SuppliersSummary from "@/components/suppliers/SuppliersSummary";
 import { columns } from "@/components/tables/suppliers/columns";
-import SuppliersTable from "@/components/tables/suppliers/suppliers-table";
+import SuppliersTable from "@/components/tables/suppliers/SuppliersTable";
 
 export default function SuppliersPage() {
   // const suppliers = await getSuppliers();

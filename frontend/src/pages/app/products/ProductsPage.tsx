@@ -1,7 +1,7 @@
-import H1 from "@/components/common/h1";
+import H1 from "@/components/common/H1";
 import { columns } from "@/components/tables/products/columns";
-import ProductsTable from "@/components/tables/products/products-table";
-import WarehouseSummary from "@/components/warehouses/warehouse-summary";
+import ProductsTable from "@/components/tables/products/ProductsTable";
+import WarehouseSummary from "@/components/warehouses/WarehouseSummary";
 import { productStatuses } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
 

@@ -1,4 +1,4 @@
-import ProductEditForm from "@/components/products/product-edit-form/product-edit-form";
+import ProductEditForm from "@/components/products/product-edit-form/ProductEditForm";
 
 export default function ProductPage() {
   // const product = await getProductBySlug(params.slug);

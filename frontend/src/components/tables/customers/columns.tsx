@@ -1,11 +1,9 @@
-"use client";
-
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronsUpDown, Mail, Phone } from "lucide-react";
 import { formatPhoneNumberIntl } from "react-phone-number-input";
 
-import FormDialog from "@/components/common/form-dialog";
-import CustomerViewShipmentsDialog from "@/components/customers/customer-view-shipments/customer-view-shipments-dialog";
+import FormDialog from "@/components/common/FormDialog";
+import CustomerViewShipmentsDialog from "@/components/customers/customer-view-shipments/CustomerViewShipmentsDialog";
 import { Button } from "@/components/ui/button";
 import { CustomerWithCustomerShipment } from "@/lib/types";
 

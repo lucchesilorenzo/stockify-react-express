@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 import { Task } from "@prisma/client";
@@ -7,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ChevronsUpDown } from "lucide-react";
 
-import TaskActions from "@/components/tasks/task-actions";
+import TaskActions from "@/components/tasks/TaskActions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { taskLabels, taskPriorities, taskStatuses } from "@/lib/data";
