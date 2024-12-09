@@ -43,3 +43,5 @@ export function parseDates<T>(data: T): T {
   return data;
 }
 ```
+
+- Attribute crossOrigin="anonymous" to <img> was needed to enable CORS to read the image from the file system.

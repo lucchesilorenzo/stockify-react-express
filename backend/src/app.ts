@@ -5,6 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { inventoryCronJob } from "./lib/cron";
 
+import env from "./lib/env";
 import errorHandler from "./middlewares/errorMiddleware";
 import analyticsRouter from "./routes/analyticsRouter";
 import authRouter from "./routes/authRouter";
@@ -17,7 +18,7 @@ import settingsRouter from "./routes/settingsRouter";
 import suppliersRouter from "./routes/suppliersRouter";
 import tasksRouter from "./routes/tasksRouter";
 import warehousesRouter from "./routes/warehousesRouter";
-import env from "./lib/env";
+import path from "path";
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded());
+app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 
 // Routes
 app.use("/api/auth", authRouter);

@@ -27,7 +27,9 @@ type ProductEditFormProps = {
 };
 
 export default function ProductEditForm({ product }: ProductEditFormProps) {
-  const { mutateAsync: updateProduct } = useUpdateProduct();
+  const { mutateAsync: updateProduct } = useUpdateProduct({
+    productSlug: product.slug,
+  });
   const { categories, warehouses } = useProduct();
 
   const {
@@ -41,17 +43,25 @@ export default function ProductEditForm({ product }: ProductEditFormProps) {
   });
 
   async function onSubmit(data: TProductEditFormSchema) {
-    console.log(data);
+    const formData = new FormData();
+
+    formData.append("description", data.description);
+    formData.append("price", data.price.toString());
+    formData.append("maxQuantity", data.maxQuantity.toString());
+    if (data.categoryId) formData.append("categoryId", data.categoryId);
+    if (data.warehouseId) formData.append("warehouseId", data.warehouseId);
+
     // Upload image if it exists
-    const file = data.image[0] as File;
+    const file = data.image?.[0] as File;
     if (file) {
       if (!file.type.startsWith("image")) {
         toast.error("Please upload a valid image.");
         return;
       }
+      formData.append("image", file);
     }
 
-    await updateProduct({ data, productId: product.id });
+    await updateProduct({ formData, productId: product.id });
   }
 
   return (

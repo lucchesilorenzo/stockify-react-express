@@ -1,4 +1,7 @@
+import { randomUUID } from "crypto";
 import { Router } from "express";
+import multer from "multer";
+import path from "path";
 import {
   getAvailableProducts,
   getProduct,
@@ -7,12 +10,29 @@ import {
   getProductsToRestock,
   updateProduct,
   updateProductStatus,
-  uploadProductImage,
 } from "../controllers/productsController";
 
 const router = Router();
 
-router.post("/upload/:productId", uploadProductImage);
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, randomUUID() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith("image")) {
+      cb(null, true);
+    } else {
+      cb(new Error("Invalid file type."));
+    }
+  },
+});
 
 router.get("/to-restock", getProductsToRestock);
 router.get("/available", getAvailableProducts);
@@ -21,7 +41,7 @@ router.get("/slug/:productSlug", getProductBySlug);
 
 router.get("/:productId", getProduct);
 
-router.patch("/:productId", updateProduct);
+router.patch("/:productId", upload.single("image"), updateProduct);
 router.patch("/:productId/status", updateProductStatus);
 router.get("/", getProducts);
 

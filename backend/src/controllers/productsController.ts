@@ -1,4 +1,3 @@
-import { randomUUID } from "crypto";
 import { Request, Response } from "express";
 import { promises as fs } from "fs";
 import path from "path";
@@ -23,11 +22,8 @@ import { ActivityEssentials } from "../lib/types";
 import {
   productEditFormSchema,
   productIdSchema,
-  productImageSchema,
   productUpdateStatusSchema,
 } from "../lib/validations/product-validations";
-import axios from "axios";
-import env from "../lib/env";
 
 // @desc    Get all products
 // @route   GET /api/products
@@ -44,7 +40,7 @@ export async function getProducts(req: Request, res: Response) {
 // @route   GET /api/products/:productId
 export async function getProduct(
   req: Request<{ productId: unknown }>,
-  res: Response,
+  res: Response
 ) {
   const validatedProductId = productIdSchema.safeParse(req.params.productId);
   if (!validatedProductId.success) {
@@ -86,7 +82,7 @@ export async function getAvailableProducts(req: Request, res: Response) {
 // @route   GET /api/products/slug/:productSlug
 export async function getProductBySlug(
   req: Request<{ productSlug: unknown }>,
-  res: Response,
+  res: Response
 ) {
   const validatedProductSlug = z.string().safeParse(req.params.productSlug);
   if (!validatedProductSlug.success) {
@@ -102,67 +98,11 @@ export async function getProductBySlug(
   }
 }
 
-// @desc    Upload product image
-// @route   POST /api/products/upload/:productId
-export async function uploadProductImage(
-  req: Request<{ productId: unknown }, {}, unknown>,
-  res: Response,
-) {
-  try {
-    // Validate product ID
-    const validatedProductId = productIdSchema.safeParse(req.params.productId);
-    if (!validatedProductId.success) {
-      res.status(400).json({ message: "Invalid product ID." });
-      return;
-    }
-
-    // Validate FileList (image)
-    const validatedImage = productImageSchema.safeParse(req.body);
-    console.log(validatedImage.data);
-    if (!validatedImage.success) {
-      res.status(400).json({ message: "Invalid image." });
-      return;
-    }
-
-    // Destructure data
-    const { image: file } = validatedImage.data;
-
-    // Delete previous file if it exists
-    const product = await getProductByIdQuery(validatedProductId.data);
-    if (product && product.image && product.image !== "/placeholder.svg") {
-      const filePath = path.join(process.cwd(), "public", product.image);
-      await fs.rm(filePath, { force: true });
-    }
-
-    // Convert file to ArrayBuffer
-    const buffer = await file.arrayBuffer();
-
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = path.join(process.cwd(), "public/uploads");
-    await fs.mkdir(uploadsDir, { recursive: true });
-
-    // Generate random file name
-    const randomFileName = randomUUID() + path.extname(file.name);
-
-    // Write file to disk
-    const filePath = path.join(uploadsDir, randomFileName);
-    await fs.writeFile(filePath, Buffer.from(buffer));
-
-    // Return file path
-    res.status(200).json({ filePath: `/uploads/${randomFileName}` });
-  } catch {
-    res.status(500).json({ message: "Failed to upload file." });
-    return;
-  }
-
-  res.status(201).json({ message: "File uploaded successfully." });
-}
-
 // @desc    Update product
 // @route   PATCH /api/products/:productId
 export async function updateProduct(
-  req: Request<{ productId: unknown }, {}, unknown>,
-  res: Response,
+  req: Request<{ productId: string }, {}, unknown>,
+  res: Response
 ) {
   // TODO: Add validation
 
@@ -174,7 +114,6 @@ export async function updateProduct(
   }
   // Check if product data is valid
   const validatedProduct = productEditFormSchema.safeParse(req.body);
-  console.log(validatedProduct.data);
   if (!validatedProduct.success) {
     res.status(400).json({ message: "Invalid product data." });
     return;
@@ -196,14 +135,6 @@ export async function updateProduct(
     return;
   }
 
-  // Upload image if it exists
-  if (validatedProduct.data.image) {
-    await axios.post(
-      `${env.API_URL}/api/products/upload/${productToUpdate.id}`,
-      { image: validatedProduct.data.image },
-    );
-  }
-
   // Decrement quantity of old warehouse if new warehouse is different
   if (
     validatedProduct.data.warehouseId &&
@@ -211,7 +142,7 @@ export async function updateProduct(
   ) {
     // Get new warehouse
     const warehouse = await getWarehouseQuery(
-      validatedProduct.data.warehouseId,
+      validatedProduct.data.warehouseId
     );
     if (!warehouse) {
       res.status(404).json({ message: "Warehouse not found." });
@@ -226,13 +157,13 @@ export async function updateProduct(
         // Update new warehouse first
         await updateWarehouseQuantityQuery(
           warehouse.id,
-          productToUpdate.quantity,
+          productToUpdate.quantity
         );
 
         // Decrement quantity of old warehouse
         await decrementWarehouseQuantityQuery(
           productToUpdate.warehouseId,
-          productToUpdate.quantity,
+          productToUpdate.quantity
         );
       } else {
         res.status(400).json({
@@ -246,11 +177,26 @@ export async function updateProduct(
     }
   }
 
+  // Delete previous file if it exists
+  if (
+    productToUpdate &&
+    productToUpdate.image &&
+    productToUpdate.image !== "uploads/placeholder.svg"
+  ) {
+    const filePath = path.join(process.cwd(), productToUpdate.image);
+    await fs.rm(filePath, { force: true });
+  }
+
+  // Check if file exists
+  if (req.file) {
+    validatedProduct.data.image = req.file.path;
+  }
+
   // Update product
   try {
     await updateProductByIdQuery(
       validatedProductId.data,
-      validatedProduct.data,
+      validatedProduct.data
     );
   } catch {
     res.status(500).json({ message: "Failed to update product." });
@@ -279,7 +225,7 @@ export async function updateProduct(
 // @route   PATCH /api/products/:productId/status
 export async function updateProductStatus(
   req: Request<{ productId: unknown }, {}, unknown>,
-  res: Response,
+  res: Response
 ) {
   // TODO: Check if user is authenticated
 

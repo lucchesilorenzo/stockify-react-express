@@ -4,9 +4,6 @@ import { parseDates } from "./utils";
 
 const api = axios.create({
   baseURL: `${env.VITE_BASE_URL}/api`,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 api.interceptors.response.use((response) => {

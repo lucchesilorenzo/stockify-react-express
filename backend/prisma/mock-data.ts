@@ -4,7 +4,7 @@ const endDate = new Date();
 function generateRandomDate(startDate: Date, endDate: Date) {
   return new Date(
     Math.random() * (endDate.getTime() - startDate.getTime()) +
-      startDate.getTime(),
+      startDate.getTime()
   );
 }
 
@@ -160,7 +160,7 @@ export const tasks = [
     priority: "MEDIUM",
     label: "QUALITY",
     dueDate: new Date(
-      new Date().setDate(new Date().getDate() + 5),
+      new Date().setDate(new Date().getDate() + 5)
     ).toISOString(),
     userId: "cm466qyf100004ov2f62p5gm6",
   },
@@ -170,7 +170,7 @@ export const tasks = [
     priority: "LOW",
     label: "ORDER",
     dueDate: new Date(
-      new Date().setDate(new Date().getDate() + 10),
+      new Date().setDate(new Date().getDate() + 10)
     ).toISOString(),
     userId: "cm466qyf100004ov2f62p5gm6",
   },
@@ -180,7 +180,7 @@ export const tasks = [
     priority: "MEDIUM",
     label: "SHIPPING",
     dueDate: new Date(
-      new Date().setDate(new Date().getDate() - 2),
+      new Date().setDate(new Date().getDate() - 2)
     ).toISOString(),
     userId: "cm466qyf100004ov2f62p5gm6",
   },
@@ -190,7 +190,7 @@ export const tasks = [
     priority: "LOW",
     label: "CUSTOMER",
     dueDate: new Date(
-      new Date().setDate(new Date().getDate() + 7),
+      new Date().setDate(new Date().getDate() + 7)
     ).toISOString(),
     userId: "cm466qyf100004ov2f62p5gm6",
   },
@@ -200,7 +200,7 @@ export const tasks = [
     priority: "HIGH",
     label: "MAINTENANCE",
     dueDate: new Date(
-      new Date().setDate(new Date().getDate() + 1),
+      new Date().setDate(new Date().getDate() + 1)
     ).toISOString(),
     userId: "cm466qyf100004ov2f62p5gm6",
   },
@@ -219,7 +219,7 @@ export const products = [
     maxQuantity: 200,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder1Date,
   },
   {
@@ -234,7 +234,7 @@ export const products = [
     maxQuantity: 150,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder1Date,
   },
   {
@@ -249,7 +249,7 @@ export const products = [
     maxQuantity: 300,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder1Date,
   },
   {
@@ -264,7 +264,7 @@ export const products = [
     maxQuantity: 100,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder1Date,
   },
   {
@@ -279,7 +279,7 @@ export const products = [
     maxQuantity: 500,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder2Date,
   },
   {
@@ -294,7 +294,7 @@ export const products = [
     maxQuantity: 150,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder2Date,
   },
   {
@@ -309,7 +309,7 @@ export const products = [
     maxQuantity: 100,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder2Date,
   },
   {
@@ -324,7 +324,7 @@ export const products = [
     maxQuantity: 200,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder2Date,
   },
   {
@@ -339,7 +339,7 @@ export const products = [
     maxQuantity: 500,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -354,7 +354,7 @@ export const products = [
     maxQuantity: 200,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -369,7 +369,7 @@ export const products = [
     maxQuantity: 150,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -384,7 +384,7 @@ export const products = [
     maxQuantity: 100,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -399,7 +399,7 @@ export const products = [
     maxQuantity: 300,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder4Date,
   },
   {
@@ -414,7 +414,7 @@ export const products = [
     maxQuantity: 200,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder4Date,
   },
   {
@@ -429,7 +429,7 @@ export const products = [
     maxQuantity: 100,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder4Date,
   },
   {
@@ -444,7 +444,7 @@ export const products = [
     maxQuantity: 150,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder4Date,
   },
   {
@@ -459,7 +459,7 @@ export const products = [
     maxQuantity: 100,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -474,7 +474,7 @@ export const products = [
     maxQuantity: 30,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -489,7 +489,7 @@ export const products = [
     maxQuantity: 40,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -504,7 +504,7 @@ export const products = [
     maxQuantity: 10,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
 ];

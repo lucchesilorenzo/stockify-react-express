@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { UseFormRegister } from "react-hook-form";
 import { TProductEditFormSchema } from "@/lib/validations/product-validations";
+import env from "@/lib/env";
 
 type ProductEditFormImageProps = {
   product: Product;
@@ -33,7 +34,8 @@ export default function ProductEditFormImage({
       <CardContent>
         <div className="space-y-2">
           <img
-            src={product.image}
+            src={`${env.VITE_BASE_URL}/${product.image}`}
+            crossOrigin="anonymous"
             alt="Product image"
             width="300"
             height="300"

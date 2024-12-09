@@ -1,21 +1,20 @@
 import { updateData } from "@/lib/api-client";
-import { TProductEditFormSchema } from "@/lib/validations/product-validations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 type UpdateProduct = {
-  data: TProductEditFormSchema;
+  formData: FormData;
   productId: string;
 };
 
-export function useUpdateProduct() {
+export function useUpdateProduct({ productSlug }: { productSlug: string }) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ data, productId }: UpdateProduct) =>
-      updateData(`/products/${productId}`, { data }),
+    mutationFn: ({ formData, productId }: UpdateProduct) =>
+      updateData(`/products/${productId}`, formData),
     onSuccess: (response) => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["product", productSlug] });
       toast.success(response.message);
     },
     onError: (error) => {

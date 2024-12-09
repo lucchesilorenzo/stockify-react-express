@@ -55,7 +55,7 @@ model Product {
   maxQuantity Int
   description String?
   status      String   @default("IN_STOCK")
-  image       String   @default("/placeholder.svg")
+  image       String   @default("uploads/placeholder.svg")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
