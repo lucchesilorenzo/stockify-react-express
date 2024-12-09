@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Task } from "@prisma/client";
+import { Task } from "@stockify/backend/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ChevronsUpDown } from "lucide-react";

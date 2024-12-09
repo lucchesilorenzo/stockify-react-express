@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Product } from "@prisma/client";
+import { Product } from "@stockify/backend/types";
 import { useForm } from "react-hook-form";
 
 import { LoadingButton } from "../common/LoadingButton";
@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "../ui/select";
 
+import { useCreateRestockOrder } from "@/hooks/mutations/orders/useCreateRestockOrder";
 import { useOrder } from "@/hooks/useOrder";
 import {
   TRestockOrderFormSchema,
@@ -29,7 +30,8 @@ export default function RestockOrderForm({
   onFormSubmit,
   products,
 }: RestockOrderFormProps) {
-  const { suppliers, handleCreateRestockOrder } = useOrder();
+  const { suppliers } = useOrder();
+  const { mutateAsync: createRestockOrder } = useCreateRestockOrder();
 
   const {
     register,
@@ -41,7 +43,7 @@ export default function RestockOrderForm({
   });
 
   async function onSubmit(data: TRestockOrderFormSchema) {
-    await handleCreateRestockOrder(data);
+    await createRestockOrder(data);
     onFormSubmit();
   }
 

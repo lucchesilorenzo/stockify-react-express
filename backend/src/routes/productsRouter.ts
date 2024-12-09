@@ -3,7 +3,6 @@ import {
   getAvailableProducts,
   getProduct,
   getProductBySlug,
-  getProductOptions,
   getProducts,
   getProductsToRestock,
   updateProduct,
@@ -19,7 +18,6 @@ router.get("/to-restock", getProductsToRestock);
 router.get("/available", getAvailableProducts);
 
 router.get("/slug/:productSlug", getProductBySlug);
-router.get("/:productId/options", getProductOptions);
 
 router.get("/:productId", getProduct);
 

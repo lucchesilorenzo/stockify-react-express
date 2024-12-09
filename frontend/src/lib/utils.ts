@@ -1,8 +1,9 @@
-import { Category, Order, Product, Task } from "@prisma/client";
+import { Category, Product, Task } from "@stockify/backend/types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 import { CustomerShipmentWithItems } from "./types";
+import { Order } from "@stockify/backend/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -17,6 +18,28 @@ export function formatCurrency(amount: number) {
 
 export function capitalize(text: string) {
   return text[0].toUpperCase() + text.slice(1).toLowerCase();
+}
+
+export function parseDates<T>(data: T): T {
+  if (Array.isArray(data)) {
+    return data.map((item) => parseDates(item)) as T;
+  }
+
+  if (data !== null && typeof data === "object") {
+    return Object.fromEntries(
+      Object.entries(data).map(([key, value]) => {
+        if (
+          (key === "createdAt" || key === "updatedAt") &&
+          typeof value === "string"
+        ) {
+          return [key, new Date(value)];
+        }
+        return [key, parseDates(value)];
+      }),
+    ) as T;
+  }
+
+  return data;
 }
 
 export function formatOrderId(order: Order) {

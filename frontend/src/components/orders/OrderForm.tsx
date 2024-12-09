@@ -18,6 +18,7 @@ import {
   TOrderFormSchema,
   orderFormSchema,
 } from "@/lib/validations/order-validations";
+import { useCreateOrder } from "@/hooks/mutations/orders/useCreateOrder";
 
 type OrderFormProps = {
   onFormSubmit: () => void;
@@ -25,7 +26,8 @@ type OrderFormProps = {
 
 export default function OrderForm({ onFormSubmit }: OrderFormProps) {
   const { categories, warehouses } = useProduct();
-  const { suppliers, handleCreateOrder } = useOrder();
+  const { suppliers } = useOrder();
+  const { mutateAsync: createOrder } = useCreateOrder();
 
   const {
     register,
@@ -37,7 +39,7 @@ export default function OrderForm({ onFormSubmit }: OrderFormProps) {
   });
 
   async function onSubmit(data: TOrderFormSchema) {
-    await handleCreateOrder(data);
+    await createOrder(data);
     onFormSubmit();
   }
 

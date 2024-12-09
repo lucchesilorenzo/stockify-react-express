@@ -182,7 +182,10 @@ export async function createOrder(
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(201).json({ message: "Order created successfully." });
 }
 
 // @desc    Create restock order
@@ -336,13 +339,16 @@ export async function createRestockOrder(
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(201).json({ message: "Restock order created successfully." });
 }
 
 // @desc    Update order status
 // @route   PATCH /api/orders/:orderId/status
 export async function updateOrderStatus(
-  req: Request<{ orderId: unknown }, {}, unknown>,
+  req: Request<{ orderId: unknown }>,
   res: Response,
 ) {
   // TODO: Check if user is authenticated
@@ -373,5 +379,8 @@ export async function updateOrderStatus(
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(200).json({ message: "Order status updated successfully." });
 }

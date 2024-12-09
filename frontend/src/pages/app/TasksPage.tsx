@@ -1,9 +1,13 @@
 import H1 from "@/components/common/H1";
+import Spinner from "@/components/common/spinner";
 import { columns } from "@/components/tables/tasks/columns";
 import TasksTable from "@/components/tables/tasks/TasksTable";
+import { useTasks } from "@/hooks/queries/useTasks";
 
 export default function TasksPage() {
-  // const tasks = await getTasks();
+  const { data: tasks = [], isLoading } = useTasks();
+
+  if (isLoading) return <Spinner size="large" />;
 
   return (
     <main>
@@ -13,7 +17,7 @@ export default function TasksPage() {
       </p>
 
       <div className="my-6 grid grid-cols-1">
-        {/* <TasksTable columns={columns} data={tasks} /> */}
+        <TasksTable columns={columns} data={tasks} />
       </div>
     </main>
   );

@@ -1,4 +1,4 @@
-import { Prisma, Product } from "@prisma/client";
+import { Prisma, Product } from "@stockify/backend/types";
 
 export type ProductWithCategoryAndWarehouse = Prisma.ProductGetPayload<{
   include: {

@@ -1,12 +1,12 @@
 import H1 from "@/components/common/H1";
-import Spinner from "@/components/common/Spinner";
+import Spinner from "@/components/common/spinner";
 import DashboardSummary from "@/components/dashboard/DashboardSummary";
 import ActivitiesTable from "@/components/tables/dashboard/ActivitiesTable";
 import { columns } from "@/components/tables/dashboard/columns";
 import { useActivities } from "@/hooks/queries/useActivities";
 
 export default function DashboardPage() {
-  const { data: activities, isLoading } = useActivities();
+  const { data: activities = [], isLoading } = useActivities();
 
   return (
     <main>

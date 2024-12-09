@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client";
+import { Product } from "@stockify/backend/types";
 import { QrCode } from "lucide-react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 

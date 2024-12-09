@@ -161,7 +161,10 @@ export async function createCustomerShipment(req: Request, res: Response) {
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(201).json({ message: "Shipment created successfully." });
 }
 
 // @desc    Update a customer
@@ -207,5 +210,8 @@ export async function updateCustomer(
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(200).json({ message: "Customer updated successfully." });
 }

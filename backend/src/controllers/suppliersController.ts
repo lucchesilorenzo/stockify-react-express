@@ -65,7 +65,10 @@ export async function createSupplier(
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(201).json({ message: "Supplier created successfully." });
 }
 
 // @desc    Update a supplier's rating
@@ -94,7 +97,7 @@ export async function updateSupplierRating(
   try {
     await updateSupplierRatingQuery(
       validatedSuppliedId.data,
-      validatedRating.data,
+      validatedRating.data.rating,
     );
   } catch {
     res.status(500).json({ message: "Failed to update supplier rating." });
@@ -114,4 +117,6 @@ export async function updateSupplierRating(
     res.status(500).json({ message: "Failed to create activity." });
     return;
   }
+
+  res.status(200).json({ message: "Supplier rating updated successfully." });
 }

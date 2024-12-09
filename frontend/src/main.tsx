@@ -1,30 +1,32 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./styles/globals.css";
 
 import AppLayout from "./components/layout/page-layouts/AppLayout";
-import SettingsPage from "./pages/app/SettingsPage";
+import AuthLayout from "./components/layout/page-layouts/AuthLayout";
+import RootLayout from "./components/layout/page-layouts/RootLayout";
 import AnalyticsPage from "./pages/app/AnalyticsPage";
 import CustomersPage from "./pages/app/CustomersPage";
 import DashboardPage from "./pages/app/DashboardPage";
-import ProductsPage from "./pages/app/products/ProductsPage";
+import OrdersPage from "./pages/app/OrdersPage";
 import ProductPage from "./pages/app/products/ProductPage";
+import ProductsPage from "./pages/app/products/ProductsPage";
+import SettingsPage from "./pages/app/SettingsPage";
 import SuppliersPage from "./pages/app/SuppliersPage";
 import TasksPage from "./pages/app/TasksPage";
-import AuthLayout from "./components/layout/page-layouts/AuthLayout";
 import LogInPage from "./pages/auth/LogInPage";
 import SignUpPage from "./pages/auth/SignUpPage";
-import OrdersPage from "./pages/app/OrdersPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import RootLayout from "./components/layout/page-layouts/RootLayout";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools />
       <BrowserRouter>
         <Routes>
           <Route element={<RootLayout />}>

@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client";
+import { Product } from "@stockify/backend/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ChevronsUpDown, Truck } from "lucide-react";

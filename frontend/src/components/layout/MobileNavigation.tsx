@@ -3,7 +3,6 @@ import { useState } from "react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Menu } from "lucide-react";
 
-import Logo from "../common/Logo";
 import { Button } from "../ui/button";
 import {
   Sheet,
@@ -16,6 +15,7 @@ import {
 
 import { routes } from "@/lib/data";
 import { Link } from "react-router-dom";
+import Logo from "../common/Logo";
 
 export default function MobileNavigation() {
   const [open, setOpen] = useState(false);

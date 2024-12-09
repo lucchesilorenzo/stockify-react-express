@@ -1,4 +1,4 @@
-import { Category, Product } from "@prisma/client";
+import { Category, Product } from "@stockify/backend/types";
 import { FieldErrors, UseFormSetValue } from "react-hook-form";
 
 import { Label } from "@/components/ui/label";

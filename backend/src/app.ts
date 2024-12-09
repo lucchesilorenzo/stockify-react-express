@@ -17,21 +17,22 @@ import settingsRouter from "./routes/settingsRouter";
 import suppliersRouter from "./routes/suppliersRouter";
 import tasksRouter from "./routes/tasksRouter";
 import warehousesRouter from "./routes/warehousesRouter";
+import env from "./lib/env";
 
 const app = express();
 
 inventoryCronJob();
 
 // Middlewares
-app.use(express.json());
-app.use(express.urlencoded());
 app.use(morgan("dev"));
+app.use(helmet());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: env.APP_ORIGIN,
   }),
 );
-app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded());
 
 // Routes
 app.use("/api/auth", authRouter);
@@ -49,5 +50,5 @@ app.use("/api/analytics", analyticsRouter);
 // Error middleware
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = env.PORT || 5000;
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));

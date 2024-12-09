@@ -1,10 +1,7 @@
-import { useRef } from "react";
-
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Product } from "@prisma/client";
+import { Product } from "@stockify/backend/types";
 import { ChevronLeft, Save, X } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 import ProductEditFormDetails from "./ProductEditFormDetails";
 import ProductEditFormImage from "./ProductEditFormImage";
@@ -14,8 +11,8 @@ import H1 from "@/components/common/H1";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useUpdateProduct } from "@/hooks/mutations/products/useUpdateProduct";
 import { useProduct } from "@/hooks/useProduct";
-import { uploadProductImage } from "@/lib/api";
 import { STATUS_CONFIG } from "@/lib/constants";
 import {
   TProductEditFormSchema,
@@ -23,18 +20,15 @@ import {
 } from "@/lib/validations/product-validations";
 import { Link } from "react-router-dom";
 import ProductEditFormSelection from "./ProductEditFormSelection";
+import { toast } from "sonner";
 
 type ProductEditFormProps = {
   product: Product;
 };
 
 export default function ProductEditForm({ product }: ProductEditFormProps) {
-  const {
-    categories,
-    warehouses,
-    handleUpdateProduct,
-    handleCheckProductMaxQuantity,
-  } = useProduct();
+  const { mutateAsync: updateProduct } = useUpdateProduct();
+  const { categories, warehouses } = useProduct();
 
   const {
     register,
@@ -46,41 +40,18 @@ export default function ProductEditForm({ product }: ProductEditFormProps) {
     resolver: zodResolver(productEditFormSchema),
   });
 
-  const imageInputRef = useRef<HTMLInputElement>(null);
-
   async function onSubmit(data: TProductEditFormSchema) {
-    // Check if max quantity is reached
-    const result = await handleCheckProductMaxQuantity(
-      product.id,
-      data.maxQuantity,
-    );
-    if (!result) return;
-
+    console.log(data);
     // Upload image if it exists
-    const file = imageInputRef.current?.files?.[0];
-
+    const file = data.image[0] as File;
     if (file) {
-      if (file.type.startsWith("image")) {
-        const formData = new FormData();
-        formData.append("image", file);
-
-        const uploadResponse = await uploadProductImage(formData, product.id);
-
-        if (uploadResponse.message) {
-          toast.error(uploadResponse.message);
-          data.image = product.image;
-        } else {
-          data.image = uploadResponse.filePath;
-        }
-      } else {
+      if (!file.type.startsWith("image")) {
         toast.error("Please upload a valid image.");
         return;
       }
-    } else {
-      data.image = product.image;
     }
 
-    await handleUpdateProduct(product.id, data);
+    await updateProduct({ data, productId: product.id });
   }
 
   return (
@@ -139,10 +110,7 @@ export default function ProductEditForm({ product }: ProductEditFormProps) {
         </div>
 
         <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-          <ProductEditFormImage
-            product={product}
-            imageInputRef={imageInputRef}
-          />
+          <ProductEditFormImage product={product} register={register} />
         </div>
       </div>
 

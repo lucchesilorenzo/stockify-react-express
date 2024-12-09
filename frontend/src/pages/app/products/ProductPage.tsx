@@ -1,11 +1,18 @@
+import Spinner from "@/components/common/spinner";
 import ProductEditForm from "@/components/products/product-edit-form/ProductEditForm";
+import { useProduct } from "@/hooks/queries/products/useProduct";
+import { Navigate, useParams } from "react-router-dom";
 
 export default function ProductPage() {
-  // const product = await getProductBySlug(params.slug);
+  const { productSlug } = useParams();
+  const { data: product, isLoading } = useProduct({ productSlug });
+
+  if (isLoading) return <Spinner size="large" />;
+  if (!productSlug || !product) return <Navigate to="*" replace />;
 
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-      {/* <ProductEditForm product={product} /> */}
+      <ProductEditForm product={product} />
     </main>
   );
 }

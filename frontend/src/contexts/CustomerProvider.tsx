@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-import { Customer, Product } from "@prisma/client";
+import { Customer, Product } from "@stockify/backend/types";
 
 import {
   CustomerSelectedProduct,

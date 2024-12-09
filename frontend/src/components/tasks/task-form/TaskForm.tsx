@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 import { LoadingButton } from "../../common/LoadingButton";
 import { Label } from "../../ui/label";
@@ -13,8 +12,8 @@ import {
 } from "../../ui/select";
 import TaskFormDatePicker from "./TaskFormDatePicker";
 
-// import { createTaskAction } from "@/app/actions/task-actions";
 import { Textarea } from "@/components/ui/textarea";
+import { useCreateTask } from "@/hooks/mutations/tasks/useCreateTask";
 import { taskLabels, taskPriorities, taskStatuses } from "@/lib/data";
 import {
   TTaskFormSchema,
@@ -26,6 +25,7 @@ type TaskFormProps = {
 };
 
 export default function TaskForm({ onFormSubmit }: TaskFormProps) {
+  const { mutateAsync: createTask } = useCreateTask();
   const {
     register,
     handleSubmit,
@@ -37,13 +37,8 @@ export default function TaskForm({ onFormSubmit }: TaskFormProps) {
   });
 
   async function onSubmit(data: TTaskFormSchema) {
-    // const result = await createTaskAction(data);
-    // if (result?.message) {
-    //   toast.error(result.message);
-    //   return;
-    // }
-    // onFormSubmit();
-    // toast.success("Task created successfully.");
+    await createTask(data);
+    onFormSubmit();
   }
 
   return (

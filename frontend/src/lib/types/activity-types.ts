@@ -1,4 +1,4 @@
-import { Prisma, User } from "@prisma/client";
+import { Prisma, User } from "@stockify/backend/types";
 
 import { ProductEssentials } from "./product-types";
 

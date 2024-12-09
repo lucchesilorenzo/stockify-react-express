@@ -1,15 +1,15 @@
-import { useAvailableProducts } from "@/hooks/queries/useAvailableProducts";
+import { useAvailableProducts } from "@/hooks/queries/products/useAvailableProducts";
 import { useCustomers } from "@/hooks/queries/useCustomers";
-import Spinner from "../common/Spinner";
 import CustomersTable from "../tables/customers/CustomersTable";
-import { columns } from "../tables/customers/columns";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import CustomerShipmentForm from "./customer-shipment-form/CustomerShipmentForm";
+import Spinner from "../common/spinner";
+import { columns } from "../tables/customers/columns";
 
 export default function CustomerTabs() {
-  const { data: availableProducts, isLoading: availableProductsLoading } =
+  const { data: availableProducts = [], isLoading: availableProductsLoading } =
     useAvailableProducts();
-  const { data: customers, isLoading: customersLoading } = useCustomers();
+  const { data: customers = [], isLoading: customersLoading } = useCustomers();
 
   const isLoading = availableProductsLoading || customersLoading;
 

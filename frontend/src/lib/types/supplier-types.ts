@@ -1,4 +1,4 @@
-import { Supplier } from "@prisma/client";
+import { Supplier } from "@stockify/backend/types";
 
 export type SupplierWithOrderCount = Supplier & {
   _count: {

@@ -28,6 +28,8 @@ export async function getSettingsByUserId(
   }
 }
 
+// @desc    Update user's settings
+// @route   PATCH /api/settings/:userId
 export async function updateSettingsByUserId(
   req: Request<{ userId: unknown }, {}, unknown>,
   res: Response,
@@ -54,5 +56,8 @@ export async function updateSettingsByUserId(
     );
   } catch {
     res.status(500).json({ message: "Failed to update settings." });
+    return;
   }
+
+  res.status(200).json({ message: "Settings updated successfully." });
 }

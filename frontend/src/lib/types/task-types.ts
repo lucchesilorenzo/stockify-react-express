@@ -1,4 +1,4 @@
-import { Task } from "@prisma/client";
+import { Task } from "@stockify/backend/types";
 
 export type TaskWithUser = Task & {
   user: {

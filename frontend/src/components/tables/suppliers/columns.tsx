@@ -3,9 +3,9 @@ import { ChevronsUpDown, Globe, Mail, Phone, ShoppingCart } from "lucide-react";
 import { formatPhoneNumberIntl } from "react-phone-number-input";
 import { toast } from "sonner";
 
-// import { updateSupplierRatingAction } from "@/app/actions/supplier-actions";
 import StarRating from "@/components/common/StarRating";
 import { Button } from "@/components/ui/button";
+import { updateData } from "@/lib/api-client";
 import { SupplierWithOrderCount } from "@/lib/types";
 import { TSupplierRatingSchema } from "@/lib/validations/supplier-validations";
 
@@ -45,18 +45,19 @@ export const columns: ColumnDef<SupplierWithOrderCount>[] = [
     cell: ({ row }) => {
       const rating: TSupplierRatingSchema = row.getValue("rating");
 
-      // async function handleRatingChange(newRating: TSupplierRatingSchema) {
-      //   const result = await updateSupplierRatingAction(
-      //     row.original.id,
-      //     newRating,
-      //   );
-      //   if (result?.message) {
-      //     toast.error(result?.message);
-      //     return;
-      //   }
+      async function handleRatingChange(newRating: TSupplierRatingSchema) {
+        // TODO: Find solution to revalidate cache
+        const result = await updateData(
+          `/suppliers/${row.original.id}/rating`,
+          { rating: newRating },
+        );
+        if (result?.message) {
+          toast.error(result?.message);
+          return;
+        }
 
-      //   toast.success("Rating updated successfully.");
-      // }
+        toast.success("Rating updated successfully.");
+      }
 
       return (
         <div className="flex min-w-[150px] items-center justify-center">

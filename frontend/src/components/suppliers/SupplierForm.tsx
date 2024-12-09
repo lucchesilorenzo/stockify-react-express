@@ -1,24 +1,24 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
 
-import { LoadingButton } from "../common/LoadingButton";
 import EmailInput from "../common/EmailInput";
+import { LoadingButton } from "../common/LoadingButton";
+import { PhoneInput } from "../common/PhoneInput";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { PhoneInput } from "../common/PhoneInput";
 
-// import { createSupplierAction } from "@/app/actions/supplier-actions";
 import {
   TSupplierFormSchema,
   supplierFormSchema,
 } from "@/lib/validations/supplier-validations";
+import { useCreateSupplier } from "@/hooks/mutations/useCreateSupplier";
 
 type SupplierFormProps = {
   onFormSubmit: () => void;
 };
 
 export default function SupplierForm({ onFormSubmit }: SupplierFormProps) {
+  const { mutateAsync: createSupplier } = useCreateSupplier();
   const {
     register,
     handleSubmit,
@@ -29,13 +29,8 @@ export default function SupplierForm({ onFormSubmit }: SupplierFormProps) {
   });
 
   async function onSubmit(data: TSupplierFormSchema) {
-    // const result = await createSupplierAction(data);
-    // if (result?.message) {
-    //   toast.error(result.message);
-    //   return;
-    // }
-    // onFormSubmit();
-    // toast.success("Supplier created successfully.");
+    await createSupplier(data);
+    onFormSubmit();
   }
 
   return (

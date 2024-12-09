@@ -1,4 +1,4 @@
-import { Customer } from "@prisma/client";
+import { Customer } from "@stockify/backend/types";
 import { X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";

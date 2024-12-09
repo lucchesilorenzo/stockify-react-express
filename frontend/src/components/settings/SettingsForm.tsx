@@ -1,27 +1,27 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
 
-import { LoadingButton } from "../common/LoadingButton";
 import EmailInput from "../common/EmailInput";
+import { LoadingButton } from "../common/LoadingButton";
+import { PhoneInput } from "../common/PhoneInput";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { PhoneInput } from "../common/PhoneInput";
 import { Textarea } from "../ui/textarea";
 import SettingsDatePicker from "./SettingsDatePicker";
 
-import { updateSettingsAction } from "@/app/actions/settings-actions";
 import { UserSettings } from "@/lib/types";
 import {
   TSettingsFormSchema,
   settingsFormSchema,
 } from "@/lib/validations/settings-validations";
+import { useUpdateSettings } from "@/hooks/mutations/useUpdateSettings";
 
 type SettingsFormProps = {
   userSettings: UserSettings;
 };
 
 export default function SettingsForm({ userSettings }: SettingsFormProps) {
+  const { mutateAsync: updateSettings } = useUpdateSettings();
   const {
     register,
     setValue,
@@ -33,12 +33,8 @@ export default function SettingsForm({ userSettings }: SettingsFormProps) {
   });
 
   async function onSubmit(data: TSettingsFormSchema) {
-    const result = await updateSettingsAction(data);
-    if (result?.message) {
-      toast.error(result?.message);
-      return;
-    }
-    toast.success("Settings updated successfully.");
+    // TODO: update settings
+    // await updateSettings({ data, userId: userSettings.id });
   }
 
   return (

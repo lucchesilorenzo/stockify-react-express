@@ -1,14 +1,14 @@
 import { createContext } from "react";
 
-import { Supplier } from "@prisma/client";
+import { SupplierWithOrderCount } from "@/lib/types";
 
 type OrderProviderProps = {
   children: React.ReactNode;
-  suppliers: Supplier[];
+  suppliers: SupplierWithOrderCount[];
 };
 
 type TOrderContext = {
-  suppliers: Supplier[];
+  suppliers: SupplierWithOrderCount[];
 };
 
 export const OrderContext = createContext<TOrderContext | null>(null);

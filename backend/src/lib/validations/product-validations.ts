@@ -23,14 +23,12 @@ export const productEditFormSchema = z.object({
 });
 
 export const productImageSchema = z.object({
-  image: z.instanceof(File),
+  image: z.any().optional(),
 });
 
-export const productUpdateStatusSchema = z.enum([
-  "IN_STOCK",
-  "OUT_OF_STOCK",
-  "ARCHIVED",
-]);
+export const productUpdateStatusSchema = z.object({
+  status: z.enum(["IN_STOCK", "OUT_OF_STOCK", "ARCHIVED"]),
+});
 
 // Types
 export type TProductEditFormSchema = z.infer<typeof productEditFormSchema>;

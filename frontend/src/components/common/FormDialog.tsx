@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Product, Task } from "@prisma/client";
+import { Product, Task } from "@stockify/backend/types";
 
 import CustomerEditForm from "../customers/CustomerEditForm";
 import OrderForm from "../orders/OrderForm";

@@ -84,9 +84,6 @@ export async function getProductBySlugQuery(productSlug: Product["slug"]) {
     },
   });
 
-  // TODO: Different from Next.js
-  // if (!product) return notFound();
-
   return product;
 }
 

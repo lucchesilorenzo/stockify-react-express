@@ -14,19 +14,21 @@ import {
 } from "../ui/dropdown-menu";
 import OrderInvoiceDialog from "./OrderInvoiceDialog";
 
-// import { updateOrderStatusAction } from "@/app/actions/order-actions";
 import { DetailedOrder } from "@/lib/types";
+import { useUpdateOrderStatus } from "@/hooks/mutations/useUpdateOrderStatus";
 
 type OrderActionsProps = {
   order: DetailedOrder;
 };
 
 export default function OrderActions({ order }: OrderActionsProps) {
+  const { mutate: updateOrderStatusAction } = useUpdateOrderStatus();
+
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isInvoiceOpen, setIsInvoiceOpen] = useState(false);
 
-  async function onUpdateOrderStatus() {
-    // await updateOrderStatusAction(order.id);
+  async function onUpdateOrderStatusAndCloseAlert() {
+    updateOrderStatusAction(order.id);
     setIsAlertOpen(false);
   }
 
@@ -62,7 +64,7 @@ export default function OrderActions({ order }: OrderActionsProps) {
       <MainAlertDialog
         open={isAlertOpen}
         setOpen={setIsAlertOpen}
-        onUpdateItemStatus={onUpdateOrderStatus}
+        onUpdateItemStatus={onUpdateOrderStatusAndCloseAlert}
         type="order"
       />
     </>

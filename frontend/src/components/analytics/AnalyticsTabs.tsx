@@ -2,21 +2,24 @@ import { useAnalyticsData } from "@/hooks/queries/useAnalyticsData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import AnalyticsInventory from "./AnalyticsInventory";
 import AnalyticsOverview from "./AnalyticsOverview";
-import Spinner from "../common/Spinner";
+import Spinner from "../common/spinner";
 
 export default function AnalyticsTabs() {
   const [
     { data: pieChart, isLoading: pieChartDataLoading },
-    { data: monthlyInventoryValues, isLoading: monthlyInventoryValuesLoading },
-    { data: topProducts, isLoading: topProductsLoading },
+    {
+      data: monthlyInventoryValues = [],
+      isLoading: monthlyInventoryValuesLoading,
+    },
+    { data: topProducts = [], isLoading: topProductsLoading },
   ] = useAnalyticsData();
-
-  const { pieChartData, pieChartConfig } = pieChart || {};
 
   const isLoading =
     pieChartDataLoading || monthlyInventoryValuesLoading || topProductsLoading;
 
-  if (isLoading) return <Spinner size="large" />;
+  if (!pieChart || isLoading) return <Spinner size="large" />;
+
+  const { pieChartData, pieChartConfig } = pieChart;
 
   return (
     <Tabs defaultValue="overview" className="space-y-4">

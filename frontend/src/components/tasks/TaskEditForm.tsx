@@ -1,11 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Task } from "@prisma/client";
+import { Task } from "@stockify/backend/types";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 import TaskFormDatePicker from "./task-form/TaskFormDatePicker";
 
-// import { updateTaskAction } from "@/app/actions/task-actions";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,6 +11,7 @@ import {
   TTaskEditFormSchema,
   taskEditFormSchema,
 } from "@/lib/validations/task-validations";
+import { useUpdateTask } from "@/hooks/mutations/tasks/useUpdateTask";
 
 type TaskEditFormProps = {
   onFormSubmit: () => void;
@@ -23,6 +22,7 @@ export default function TaskEditForm({
   onFormSubmit,
   task,
 }: TaskEditFormProps) {
+  const { mutateAsync: updateTask } = useUpdateTask();
   const {
     register,
     handleSubmit,
@@ -37,13 +37,8 @@ export default function TaskEditForm({
   });
 
   async function onSubmit(data: TTaskEditFormSchema) {
-    // const result = await updateTaskAction(data, task.id);
-    // if (result?.message) {
-    //   toast.error(result.message);
-    //   return;
-    // }
-    // onFormSubmit();
-    // toast.success("Task edited successfully.");
+    await updateTask({ data, taskId: task.id });
+    onFormSubmit();
   }
 
   return (

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Product } from "@prisma/client";
+import { Product } from "@stockify/backend/types";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { UseFormSetValue } from "react-hook-form";
 

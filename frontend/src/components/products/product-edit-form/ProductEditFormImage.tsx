@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client";
+import { Product } from "@stockify/backend/types";
 import { Image as ImageIcon, Upload } from "lucide-react";
 
 import {
@@ -9,15 +9,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { UseFormRegister } from "react-hook-form";
+import { TProductEditFormSchema } from "@/lib/validations/product-validations";
 
 type ProductEditFormImageProps = {
   product: Product;
-  imageInputRef: React.RefObject<HTMLInputElement>;
+  register: UseFormRegister<TProductEditFormSchema>;
 };
 
 export default function ProductEditFormImage({
   product,
-  imageInputRef,
+  register,
 }: ProductEditFormImageProps) {
   return (
     <Card className="overflow-hidden">
@@ -42,7 +44,7 @@ export default function ProductEditFormImage({
               <Input
                 type="file"
                 id="imageInput"
-                ref={imageInputRef}
+                {...register("image")}
                 accept="image/*"
                 className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
               />

@@ -22,10 +22,13 @@ export const taskFormSchema = z.object({
 
 export const taskEditFormSchema = z.object({
   title: z.string().trim().max(100, "Title is too long.").optional(),
-  dueDate: z.date().optional(),
+  dueDate: z.coerce.date().optional(),
 });
 
 export const taskIdSchema = z.string().cuid();
+
+// TODO: impove typing for updateTaskField mutation
+export const taskFieldSchema = z.enum(["label", "status", "priority"]);
 
 export const taskLabelSchema = z.enum([
   "INVENTORY",
@@ -45,7 +48,6 @@ export const taskStatusSchema = z.enum([
 ]);
 
 export const taskPrioritySchema = z.enum(["LOW", "MEDIUM", "HIGH"]);
-export const taskFieldSchema = z.enum(["label", "status", "priority"]);
 
 export const taskGeneratorFormSchema = z.object({
   prompt: z.string().trim().min(1, "Prompt is required.").max(1000),

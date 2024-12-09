@@ -9,10 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getProductsToRestock } from "@/lib/queries/product-queries";
+import { useProductsToRestock } from "@/hooks/queries/products/useProductsToRestock";
+import Spinner from "../common/spinner";
 
 export default function OrdersActionCard() {
-  // const products = await getProductsToRestock();
+  const { data: products = [], isLoading } = useProductsToRestock();
+
+  if (isLoading) return <Spinner size="large" />;
 
   return (
     <Card className="sm:col-span-2">

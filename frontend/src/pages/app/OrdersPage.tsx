@@ -1,4 +1,3 @@
-import H1 from "@/components/common/H1";
 import OrderSummaryCard from "@/components/orders/OrderSummaryCard";
 import OrdersActionCard from "@/components/orders/OrdersActionCard";
 import { columns } from "@/components/tables/orders/columns";
@@ -7,13 +6,14 @@ import { useOrders } from "@/hooks/queries/useOrders";
 import { formatCurrency, formatOrderId } from "@/lib/utils";
 import { format } from "date-fns";
 import { orderStatuses } from "@/lib/data";
-import Spinner from "@/components/common/Spinner";
+import Spinner from "@/components/common/spinner";
+import H1 from "@/components/common/H1";
 
 export default function OrdersPage() {
   const [
-    { data: orders, isLoading: ordersLoading },
-    { data: monthlyOrders, isLoading: monthlyOrdersLoading },
-    { data: weeklyOrders, isLoading: weeklyOrdersLoading },
+    { data: orders = [], isLoading: ordersLoading },
+    { data: monthlyOrders = [], isLoading: monthlyOrdersLoading },
+    { data: weeklyOrders = [], isLoading: weeklyOrdersLoading },
   ] = useOrders();
 
   const isLoading =

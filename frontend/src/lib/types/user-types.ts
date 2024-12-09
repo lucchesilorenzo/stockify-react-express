@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { User } from "@stockify/backend/types";
 
 export type UserEssentials = Pick<
   User,

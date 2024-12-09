@@ -1,4 +1,4 @@
-import { Customer, CustomerShipment, Prisma } from "@prisma/client";
+import { Customer, CustomerShipment, Prisma } from "@stockify/backend/types";
 
 export type CustomerEssentials = Omit<
   Customer,

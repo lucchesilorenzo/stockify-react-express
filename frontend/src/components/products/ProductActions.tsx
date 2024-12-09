@@ -13,20 +13,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useProduct } from "@/hooks/useProduct";
 import { ProductWithCategoryAndWarehouse } from "@/lib/types";
 import { Link } from "react-router-dom";
+import { useUpdateProductStatus } from "@/hooks/mutations/products/useUpdateProductStatus";
 
 type ProductActionsProps = {
   product: ProductWithCategoryAndWarehouse;
 };
 
 export default function ProductActions({ product }: ProductActionsProps) {
-  const { handleUpdateProductStatus } = useProduct();
+  const { mutate: onUpdateProductStatus } = useUpdateProductStatus();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
-  async function onUpdateProductStatus() {
-    await handleUpdateProductStatus(product.id, product.status);
+  async function onUpdateProductStatusAndCloseAlert() {
+    onUpdateProductStatus({ productId: product.id, status: product.status });
     setIsAlertOpen(false);
   }
 
@@ -54,7 +54,7 @@ export default function ProductActions({ product }: ProductActionsProps) {
       <MainAlertDialog
         open={isAlertOpen}
         setOpen={setIsAlertOpen}
-        onUpdateItemStatus={onUpdateProductStatus}
+        onUpdateItemStatus={onUpdateProductStatusAndCloseAlert}
         status={product.status}
         type="product"
       />

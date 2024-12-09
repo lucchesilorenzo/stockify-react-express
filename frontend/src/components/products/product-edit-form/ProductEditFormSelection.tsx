@@ -1,4 +1,4 @@
-import { Category, Product, Warehouse } from "@prisma/client";
+import { Category, Product, Warehouse } from "@stockify/backend/types";
 import { FieldErrors, UseFormSetValue } from "react-hook-form";
 
 import ProductEditFormCategorySelect from "./ProductEditFormCategorySelect";

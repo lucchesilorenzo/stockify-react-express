@@ -22,7 +22,7 @@ export const taskFormSchema = z.object({
 
 export const taskEditFormSchema = z.object({
   title: z.string().trim().max(100, "Title is too long.").optional(),
-  dueDate: z.date().optional(),
+  dueDate: z.coerce.date().optional(),
 });
 
 export const taskIdSchema = z.string().cuid();

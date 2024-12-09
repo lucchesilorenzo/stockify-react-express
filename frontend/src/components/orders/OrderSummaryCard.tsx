@@ -1,4 +1,4 @@
-import { Order } from "@prisma/client";
+import { Order } from "@stockify/backend/types";
 import { CalendarDays } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

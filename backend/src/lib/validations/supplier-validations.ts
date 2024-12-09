@@ -36,7 +36,9 @@ export const supplierFormSchema = z.object({
 });
 
 export const supplierIdSchema = z.string().cuid();
-export const supplierRatingSchema = z.number().min(1).max(5);
+export const supplierRatingSchema = z.object({
+  rating: z.number().min(1).max(5),
+});
 
 // Types
 export type TSupplierRatingSchema = z.infer<typeof supplierRatingSchema>;

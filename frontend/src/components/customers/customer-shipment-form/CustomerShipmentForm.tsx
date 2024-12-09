@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Customer, Product } from "@prisma/client";
+import { Customer, Product } from "@stockify/backend/types";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -9,12 +9,12 @@ import { LoadingButton } from "../../common/LoadingButton";
 import CustomerInfoCard from "./CustomerInfoCard";
 import ProductSelectionCard from "./ProductSelectionCard";
 
-import { createShipmentAction } from "@/app/actions/customer-actions";
 import { useCustomer } from "@/hooks/useCustomer";
 import {
   TShippingFormSchema,
   shippingFormSchema,
 } from "@/lib/validations/customer-validations";
+import { useCreateShipment } from "@/hooks/mutations/useCreateShipment";
 
 type CustomerShipmentFormProps = {
   products: Product[];
@@ -25,6 +25,7 @@ export default function CustomerShipmentForm({
   products,
   customers,
 }: CustomerShipmentFormProps) {
+  const { mutateAsync: createShipment } = useCreateShipment();
   const {
     selectedCustomer,
     handleSelectCustomer,
@@ -69,18 +70,14 @@ export default function CustomerShipmentForm({
   }
 
   async function onSubmit(data: TShippingFormSchema) {
-    // if (!data.products.length) {
-    //   toast.error("Please select a product.");
-    //   return;
-    // }
-    // const result = await createShipmentAction(data);
-    // if (result?.message) {
-    //   toast.error(result?.message);
-    //   return;
-  }
+    if (!data.products.length) {
+      toast.error("Please select a product.");
+      return;
+    }
 
-  handleClearAll();
-  toast.success("Shipment created successfully.");
+    await createShipment(data);
+    handleClearAll();
+  }
 
   return (
     <form

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import { Task } from "@prisma/client";
+import { Task } from "@stockify/backend/types";
 
 import { TTaskFieldSchema } from "@/lib/validations/task-validations";
 

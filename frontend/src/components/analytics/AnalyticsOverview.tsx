@@ -1,4 +1,4 @@
-import { Category } from "@prisma/client";
+import { Category } from "@stockify/backend/types";
 
 import AnalyticsOverviewLineChart from "./AnalyticsOverviewLineChart";
 import AnalyticsOverviewPieChart from "./AnalyticsOverviewPieChart";

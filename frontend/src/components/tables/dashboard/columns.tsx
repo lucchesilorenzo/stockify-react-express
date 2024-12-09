@@ -1,4 +1,4 @@
-import { Activity } from "@prisma/client";
+import { Activity } from "@stockify/backend/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ChevronsUpDown } from "lucide-react";

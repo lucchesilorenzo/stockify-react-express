@@ -8,7 +8,6 @@ import {
   getAvailableProductsQuery,
   getProductByIdQuery,
   getProductBySlugQuery,
-  getProductOptionsQuery,
   getProductsQuery,
   getProductsToRestockQuery,
   restoreProductByIdQuery,
@@ -27,6 +26,8 @@ import {
   productImageSchema,
   productUpdateStatusSchema,
 } from "../lib/validations/product-validations";
+import axios from "axios";
+import env from "../lib/env";
 
 // @desc    Get all products
 // @route   GET /api/products
@@ -101,26 +102,6 @@ export async function getProductBySlug(
   }
 }
 
-// @desc    Get product options
-// @route   GET /api/products/:productId/options
-export async function getProductOptions(
-  req: Request<{ productId: unknown }>,
-  res: Response,
-) {
-  const validatedProductId = productIdSchema.safeParse(req.params.productId);
-  if (!validatedProductId.success) {
-    res.status(400).json({ message: "Invalid product ID." });
-    return;
-  }
-
-  try {
-    const options = await getProductOptionsQuery(validatedProductId.data);
-    res.status(200).json(options);
-  } catch {
-    res.status(500).json({ message: "Failed to get product options." });
-  }
-}
-
 // @desc    Upload product image
 // @route   POST /api/products/upload/:productId
 export async function uploadProductImage(
@@ -135,8 +116,9 @@ export async function uploadProductImage(
       return;
     }
 
-    // Validate formData (image)
+    // Validate FileList (image)
     const validatedImage = productImageSchema.safeParse(req.body);
+    console.log(validatedImage.data);
     if (!validatedImage.success) {
       res.status(400).json({ message: "Invalid image." });
       return;
@@ -170,7 +152,10 @@ export async function uploadProductImage(
     res.status(200).json({ filePath: `/uploads/${randomFileName}` });
   } catch {
     res.status(500).json({ message: "Failed to upload file." });
+    return;
   }
+
+  res.status(201).json({ message: "File uploaded successfully." });
 }
 
 // @desc    Update product
@@ -189,6 +174,7 @@ export async function updateProduct(
   }
   // Check if product data is valid
   const validatedProduct = productEditFormSchema.safeParse(req.body);
+  console.log(validatedProduct.data);
   if (!validatedProduct.success) {
     res.status(400).json({ message: "Invalid product data." });
     return;
@@ -199,6 +185,23 @@ export async function updateProduct(
   if (!productToUpdate) {
     res.status(404).json({ message: "Product not found." });
     return;
+  }
+
+  // Check if max quantity is greater or equal than current quantity
+  if (!(validatedProduct.data.maxQuantity >= productToUpdate.maxQuantity)) {
+    res.status(404).json({
+      message:
+        "New max quantity must be greater or equal than current max quantity.",
+    });
+    return;
+  }
+
+  // Upload image if it exists
+  if (validatedProduct.data.image) {
+    await axios.post(
+      `${env.API_URL}/api/products/upload/${productToUpdate.id}`,
+      { image: validatedProduct.data.image },
+    );
   }
 
   // Decrement quantity of old warehouse if new warehouse is different
@@ -266,7 +269,10 @@ export async function updateProduct(
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(200).json({ message: "Product updated successfully." });
 }
 
 // @desc    Update product status
@@ -300,7 +306,7 @@ export async function updateProductStatus(
 
   // Set product status
   try {
-    if (validatedProductStatus.data !== "ARCHIVED") {
+    if (validatedProductStatus.data.status !== "ARCHIVED") {
       await updateProductStatusByIdQuery(validatedProductId.data);
     } else {
       await restoreProductByIdQuery(validatedProductId.data);
@@ -313,7 +319,9 @@ export async function updateProductStatus(
   // Create a new activity
   const activity: ActivityEssentials = {
     activity: `${
-      validatedProductStatus.data !== "ARCHIVED" ? "ARCHIVED" : "RESTORED"
+      validatedProductStatus.data.status !== "ARCHIVED"
+        ? "ARCHIVED"
+        : "RESTORED"
     }`,
     entity: "Product",
     product: product.name,
@@ -324,5 +332,8 @@ export async function updateProductStatus(
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(200).json({ message: "Product status updated successfully." });
 }

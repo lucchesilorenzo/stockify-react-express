@@ -1,28 +1,30 @@
-import { Order } from "@prisma/client";
+import { Order, Prisma } from "@prisma/client";
 
 export type OrderEssentials = Omit<
   Order,
   "id" | "createdAt" | "updatedAt" | "status"
 >;
 
-export type DetailedOrder = {
-  id: string;
-  type: string;
-  product: {
-    name: string;
+export type DetailedOrder = Prisma.OrderGetPayload<{
+  include: {
+    product: {
+      select: {
+        name: true;
+      };
+    };
+    supplier: {
+      select: {
+        name: true;
+      };
+    };
+    user: {
+      select: {
+        firstName: true;
+        lastName: true;
+      };
+    };
   };
-  quantity: number;
-  supplier: {
-    name: string;
-  };
-  status: string;
-  totalPrice: number;
-  createdAt: string;
-  user: {
-    firstName: string;
-    lastName: string;
-  };
-};
+}>;
 
 export type OrderType = {
   value: "NEW" | "RESTOCK";

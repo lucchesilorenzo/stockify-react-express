@@ -22,10 +22,6 @@ export const productEditFormSchema = z.object({
   warehouseId: z.string().optional(),
 });
 
-export const productImageSchema = z.object({
-  image: z.instanceof(File),
-});
-
 export const productUpdateStatusSchema = z.enum([
   "IN_STOCK",
   "OUT_OF_STOCK",

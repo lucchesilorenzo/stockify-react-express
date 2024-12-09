@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Task } from "@prisma/client";
+import { Task } from "@stockify/backend/types";
 import { MoreHorizontalIcon } from "lucide-react";
 
 import DropdownSubMenu from "../common/DropdownSubMenu";
@@ -16,20 +16,23 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-import { useTask } from "@/hooks/useTask";
+import { useUpdateTaskField } from "@/hooks/mutations/tasks/useUpdateTaskField";
 import { taskLabels, taskPriorities, taskStatuses } from "@/lib/data";
+import { useDeleteTask } from "@/hooks/mutations/tasks/useDeleteTask";
 
 type TaskActionsProps = {
   task: Task;
 };
 
 export default function TaskActions({ task }: TaskActionsProps) {
-  const { handleDeleteTask, handleUpdateTaskField } = useTask();
+  const { mutate: onUpdateTaskField } = useUpdateTaskField();
+  const { mutate: onDeleteTask } = useDeleteTask();
+
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  async function onDeleteTask() {
-    await handleDeleteTask(task.id);
+  async function onDeleteTaskAndCloseAlert() {
+    onDeleteTask(task.id);
     setIsAlertOpen(false);
   }
 
@@ -49,7 +52,7 @@ export default function TaskActions({ task }: TaskActionsProps) {
             menuTrigger="Status"
             value={task.status}
             onValueChange={(value) =>
-              handleUpdateTaskField("status", value, task.id)
+              onUpdateTaskField({ field: "status", value, taskId: task.id })
             }
             itemGroup={taskStatuses}
           />
@@ -58,7 +61,7 @@ export default function TaskActions({ task }: TaskActionsProps) {
             menuTrigger="Label"
             value={task.label}
             onValueChange={(value) =>
-              handleUpdateTaskField("label", value, task.id)
+              onUpdateTaskField({ field: "label", value, taskId: task.id })
             }
             itemGroup={taskLabels}
           />
@@ -67,7 +70,7 @@ export default function TaskActions({ task }: TaskActionsProps) {
             menuTrigger="Priority"
             value={task.priority}
             onValueChange={(value) =>
-              handleUpdateTaskField("priority", value, task.id)
+              onUpdateTaskField({ field: "priority", value, taskId: task.id })
             }
             itemGroup={taskPriorities}
           />
@@ -92,7 +95,7 @@ export default function TaskActions({ task }: TaskActionsProps) {
         type="task"
         open={isAlertOpen}
         setOpen={setIsAlertOpen}
-        onDeleteItem={onDeleteTask}
+        onDeleteItem={onDeleteTaskAndCloseAlert}
       />
     </>
   );

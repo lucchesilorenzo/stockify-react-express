@@ -1,17 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 import { LoadingButton } from "../common/LoadingButton";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
-// import { generateTasks } from "@/app/actions/task-actions";
 import { Textarea } from "@/components/ui/textarea";
 import {
   TTaskGeneratorFormSchema,
   taskGeneratorFormSchema,
 } from "@/lib/validations/task-validations";
+import { useGenerateTasks } from "@/hooks/mutations/tasks/useGenerateTasks";
 
 type GenerateTaskFormProps = {
   onFormSubmit: () => void;
@@ -20,6 +19,7 @@ type GenerateTaskFormProps = {
 export default function GenerateTaskForm({
   onFormSubmit,
 }: GenerateTaskFormProps) {
+  const { mutateAsync: generateTasks } = useGenerateTasks();
   const {
     register,
     handleSubmit,
@@ -29,13 +29,8 @@ export default function GenerateTaskForm({
   });
 
   async function onSubmit(data: TTaskGeneratorFormSchema) {
-    // const result = await generateTasks(data);
-    // if (result?.message) {
-    //   toast.error(result.message);
-    //   return;
-    // }
-    // onFormSubmit();
-    // toast.success("Tasks created successfully.");
+    await generateTasks(data);
+    onFormSubmit();
   }
 
   return (

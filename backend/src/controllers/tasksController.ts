@@ -22,6 +22,7 @@ import {
   taskPrioritySchema,
   taskStatusSchema,
 } from "../lib/validations/task-validations";
+import env from "../lib/env";
 
 // @desc    Get all tasks
 // @route   GET /api/tasks
@@ -36,7 +37,7 @@ export async function getTasks(req: Request, res: Response) {
 
 // @desc    Create a task
 // @route   POST /api/tasks
-export async function createTask(req: Request, res: Response) {
+export async function createTask(req: Request<{}, {}, unknown>, res: Response) {
   // TODO: Check if user is authenticated
 
   // Validation
@@ -77,12 +78,18 @@ export async function createTask(req: Request, res: Response) {
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(201).json({ message: "Task created successfully." });
 }
 
 // @desc    Generate tasks
 // @route   POST /api/tasks/generate
-export async function generateTasks(req: Request, res: Response) {
+export async function generateTasks(
+  req: Request<{}, {}, unknown>,
+  res: Response,
+) {
   const validatedPrompt = taskGeneratorFormSchema.safeParse(req.body);
   if (!validatedPrompt.success) {
     res.status(400).json({ message: "Invalid prompt." });
@@ -111,11 +118,14 @@ export async function generateTasks(req: Request, res: Response) {
     const { tasks } = JSON.parse(res.message.content);
 
     for (const task of tasks) {
-      await axios.post(`${process.env.API_URL}/api/tasks`, task);
+      await axios.post(`${env.API_URL}/api/tasks`, task);
     }
   } catch {
     res.status(500).json({ message: "Failed to generate tasks." });
+    return;
   }
+
+  res.status(201).json({ message: "Tasks created successfully." });
 }
 
 // @desc    Update a task
@@ -165,7 +175,10 @@ export async function updateTask(
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(200).json({ message: "Task updated successfully." });
 }
 
 // @desc    Update task field
@@ -241,7 +254,10 @@ export async function updateTaskField(
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(200).json({ message: "Task updated successfully." });
 }
 
 // @desc    Delete a task
@@ -280,5 +296,8 @@ export async function deleteTask(req: Request, res: Response) {
     await createActivityQuery(activity);
   } catch {
     res.status(500).json({ message: "Failed to create activity." });
+    return;
   }
+
+  res.status(200).json({ message: "Task deleted successfully." });
 }

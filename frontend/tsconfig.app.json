@@ -8,7 +8,10 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@stockify/backend/types": [
+        "../backend/node_modules/.prisma/client/index.d.ts"
+      ]
     },
 
     /* Bundler mode */

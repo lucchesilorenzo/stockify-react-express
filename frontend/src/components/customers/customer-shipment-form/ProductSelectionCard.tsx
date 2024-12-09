@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client";
+import { Product } from "@stockify/backend/types";
 import { FieldErrors, UseFormSetValue } from "react-hook-form";
 import { toast } from "sonner";
 
