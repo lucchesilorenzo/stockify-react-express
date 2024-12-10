@@ -1,11 +1,9 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronsUpDown, Globe, Mail, Phone, ShoppingCart } from "lucide-react";
 import { formatPhoneNumberIntl } from "react-phone-number-input";
-import { toast } from "sonner";
 
-import StarRating from "@/components/common/StarRating";
+import StarRating from "@/components/tables/suppliers/StarRating";
 import { Button } from "@/components/ui/button";
-import { updateData } from "@/lib/api-client";
 import { SupplierWithOrderCount } from "@/lib/types";
 import { TSupplierRatingSchema } from "@/lib/validations/supplier-validations";
 
@@ -45,25 +43,11 @@ export const columns: ColumnDef<SupplierWithOrderCount>[] = [
     cell: ({ row }) => {
       const rating: TSupplierRatingSchema = row.getValue("rating");
 
-      async function handleRatingChange(newRating: TSupplierRatingSchema) {
-        // TODO: Find solution to revalidate cache
-        const result = await updateData(
-          `/suppliers/${row.original.id}/rating`,
-          { rating: newRating },
-        );
-        if (result?.message) {
-          toast.error(result?.message);
-          return;
-        }
-
-        toast.success("Rating updated successfully.");
-      }
-
       return (
         <div className="flex min-w-[150px] items-center justify-center">
           <StarRating
+            supplierId={row.original.id}
             initialRating={rating}
-            onChange={handleRatingChange}
             size="sm"
           />
         </div>

@@ -1,18 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
 
-// import { updateCustomerAction } from "@/app/actions/customer-actions";
-import { LoadingButton } from "@/components/common/LoadingButton";
 import EmailInput from "@/components/common/EmailInput";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { PhoneInput } from "@/components/common/PhoneInput";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { PhoneInput } from "@/components/common/PhoneInput";
 import { CustomerWithCustomerShipment } from "@/lib/types";
 import {
   TCustomerEditFormSchema,
   customerEditFormSchema,
 } from "@/lib/validations/customer-validations";
+import { useUpdateCustomer } from "@/hooks/mutations/customers/useUpdateCustomer";
 
 type CustomerEditFormProps = {
   onFormSubmit: () => void;
@@ -23,6 +22,7 @@ export default function CustomerEditForm({
   onFormSubmit,
   customer,
 }: CustomerEditFormProps) {
+  const { mutateAsync: updateCustomer } = useUpdateCustomer();
   const {
     register,
     handleSubmit,
@@ -33,20 +33,13 @@ export default function CustomerEditForm({
   });
 
   async function onSubmit(data: TCustomerEditFormSchema) {
-    // const result = await updateCustomerAction(data);
-    // if (result?.message) {
-    //   toast.error(result.message);
-    //   return;
-    // }
-    // onFormSubmit();
-    // toast.success("Customer updated successfully.");
+    await updateCustomer({ data, customerId: customer.id });
+    onFormSubmit();
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
       <div className="space-y-6">
-        <input type="hidden" value={customer.id} {...register("id")} />
-
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
             <Label htmlFor="firstName">

@@ -3,20 +3,23 @@ import { useState } from "react";
 import { Star } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { useUpdateSupplierRating } from "@/hooks/mutations/suppliers/useUpdateSupplierRating";
 
 type StarRatingProps = {
+  supplierId: string;
   initialRating?: number;
-  onChange?: (rating: number) => void;
   readOnly?: boolean;
   size?: "sm" | "md" | "lg";
 };
 
 export default function StarRating({
+  supplierId,
   initialRating = 0,
-  onChange,
   readOnly = false,
   size = "md",
 }: StarRatingProps) {
+  const { mutateAsync: updateSupplierRating } = useUpdateSupplierRating();
+
   const [rating, setRating] = useState(initialRating);
   const [hover, setHover] = useState(0);
 
@@ -26,10 +29,10 @@ export default function StarRating({
     lg: "w-6 h-6",
   };
 
-  function handleClick(value: number) {
+  async function handleClick(value: number) {
     if (!readOnly) {
       setRating(value);
-      onChange?.(value);
+      await updateSupplierRating({ supplierId, rating: value });
     }
   }
 

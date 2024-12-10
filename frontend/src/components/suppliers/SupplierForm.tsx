@@ -11,7 +11,7 @@ import {
   TSupplierFormSchema,
   supplierFormSchema,
 } from "@/lib/validations/supplier-validations";
-import { useCreateSupplier } from "@/hooks/mutations/useCreateSupplier";
+import { useCreateSupplier } from "@/hooks/mutations/suppliers/useCreateSupplier";
 
 type SupplierFormProps = {
   onFormSubmit: () => void;

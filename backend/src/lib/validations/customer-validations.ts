@@ -47,12 +47,13 @@ export const shippingFormSchema = z.object({
     }),
     {
       required_error: "At least one product is required.",
-    },
+    }
   ),
 });
 
+export const customerIdSchema = z.string().cuid();
+
 export const customerEditFormSchema = z.object({
-  id: z.string().cuid(),
   firstName: z
     .string()
     .trim()

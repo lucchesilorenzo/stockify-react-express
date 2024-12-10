@@ -15,6 +15,7 @@ import { updateProductQuantitiesAndStatusQuery } from "../lib/queries/product-qu
 import { Prisma } from "@prisma/client";
 import {
   customerEditFormSchema,
+  customerIdSchema,
   shippingFormSchema,
 } from "../lib/validations/customer-validations";
 
@@ -171,11 +172,18 @@ export async function createCustomerShipment(req: Request, res: Response) {
 // @route   PATCH /api/customers/:customerId
 export async function updateCustomer(
   req: Request<{ customerId: unknown }, {}, unknown>,
-  res: Response,
+  res: Response
 ) {
   // TODO: Check if user is authenticated
 
-  // Validation
+  // Validation for customer ID
+  const validatedCustomerId = customerIdSchema.safeParse(req.params.customerId);
+  if (!validatedCustomerId.success) {
+    res.status(400).json({ message: "Invalid customer ID." });
+    return;
+  }
+
+  // Validation for customer
   const validatedCustomer = customerEditFormSchema.safeParse(req.body);
   if (!validatedCustomer.success) {
     res.status(400).json({ message: "Invalid customer." });
@@ -185,8 +193,8 @@ export async function updateCustomer(
   // Update customer
   try {
     await updateCustomerByIdQuery(
-      validatedCustomer.data.id,
-      validatedCustomer.data,
+      validatedCustomerId.data,
+      validatedCustomer.data
     );
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

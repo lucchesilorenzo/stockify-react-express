@@ -14,7 +14,7 @@ import {
   TShippingFormSchema,
   shippingFormSchema,
 } from "@/lib/validations/customer-validations";
-import { useCreateShipment } from "@/hooks/mutations/useCreateShipment";
+import { useCreateShipment } from "@/hooks/mutations/customers/useCreateShipment";
 
 type CustomerShipmentFormProps = {
   products: Product[];
