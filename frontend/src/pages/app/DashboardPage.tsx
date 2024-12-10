@@ -4,9 +4,14 @@ import DashboardSummary from "@/components/dashboard/DashboardSummary";
 import ActivitiesTable from "@/components/tables/dashboard/ActivitiesTable";
 import { columns } from "@/components/tables/dashboard/columns";
 import { useActivities } from "@/hooks/queries/useActivities";
+import { useEffect } from "react";
 
 export default function DashboardPage() {
   const { data: activities = [], isLoading } = useActivities();
+
+  useEffect(() => {
+    document.title = "Dashboard | Stockify";
+  }, []);
 
   return (
     <main>

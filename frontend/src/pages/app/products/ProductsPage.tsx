@@ -5,9 +5,14 @@ import WarehouseSummary from "@/components/warehouses/WarehouseSummary";
 import { useProduct } from "@/hooks/useProduct";
 import { productStatuses } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
+import { useEffect } from "react";
 
 export default function ProductsPage() {
   const { products } = useProduct();
+
+  useEffect(() => {
+    document.title = "Products | Stockify";
+  }, []);
 
   const csvData = products.map((product) => ({
     Name: product.name,

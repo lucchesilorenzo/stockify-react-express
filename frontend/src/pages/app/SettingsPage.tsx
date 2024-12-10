@@ -3,11 +3,16 @@ import Spinner from "@/components/common/spinner";
 import SettingsForm from "@/components/settings/SettingsForm";
 import { Separator } from "@/components/ui/separator";
 import { useSettings } from "@/hooks/queries/useSettings";
+import { useEffect } from "react";
 
 export default function SettingsPage() {
   // TODO: fetch user settings
   // const session = await checkAuth();
   const { data: userSettings, isLoading } = useSettings(); // Hardcoded user ID
+
+  useEffect(() => {
+    document.title = "Settings | Stockify";
+  }, []);
 
   if (isLoading) return <Spinner size="large" />;
 

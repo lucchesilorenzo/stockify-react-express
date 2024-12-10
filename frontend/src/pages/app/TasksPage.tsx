@@ -3,9 +3,14 @@ import Spinner from "@/components/common/spinner";
 import { columns } from "@/components/tables/tasks/columns";
 import TasksTable from "@/components/tables/tasks/TasksTable";
 import { useTasks } from "@/hooks/queries/useTasks";
+import { useEffect } from "react";
 
 export default function TasksPage() {
   const { data: tasks = [], isLoading } = useTasks();
+
+  useEffect(() => {
+    document.title = "Tasks | Stockify";
+  }, []);
 
   if (isLoading) return <Spinner size="large" />;
 

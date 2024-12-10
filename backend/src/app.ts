@@ -1,10 +1,10 @@
 import cors from "cors";
-import "dotenv/config";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import { inventoryCronJob } from "./lib/cron";
 
+import path from "path";
 import env from "./lib/env";
 import errorHandler from "./middlewares/errorMiddleware";
 import analyticsRouter from "./routes/analyticsRouter";
@@ -18,7 +18,6 @@ import settingsRouter from "./routes/settingsRouter";
 import suppliersRouter from "./routes/suppliersRouter";
 import tasksRouter from "./routes/tasksRouter";
 import warehousesRouter from "./routes/warehousesRouter";
-import path from "path";
 
 const app = express();
 
@@ -30,7 +29,7 @@ app.use(helmet());
 app.use(
   cors({
     origin: env.APP_ORIGIN,
-  }),
+  })
 );
 app.use(express.json());
 app.use(express.urlencoded());

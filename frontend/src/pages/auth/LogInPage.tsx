@@ -2,8 +2,13 @@ import AuthFooter from "@/components/auth/AuthFooter";
 import AuthForm from "@/components/auth/AuthForm";
 import AuthHeading from "@/components/auth/AuthHeading";
 import AuthImage from "@/components/auth/AuthImage";
+import { useEffect } from "react";
 
 export default function LogInPage() {
+  useEffect(() => {
+    document.title = "Log In | Stockify";
+  }, []);
+
   return (
     <>
       <AuthImage />

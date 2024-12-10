@@ -3,9 +3,14 @@ import SuppliersSummary from "@/components/suppliers/SuppliersSummary";
 import { columns } from "@/components/tables/suppliers/columns";
 import SuppliersTable from "@/components/tables/suppliers/SuppliersTable";
 import { useOrder } from "@/hooks/useOrder";
+import { useEffect } from "react";
 
 export default function SuppliersPage() {
   const { suppliers } = useOrder();
+
+  useEffect(() => {
+    document.title = "Suppliers | Stockify";
+  }, []);
 
   return (
     <main>

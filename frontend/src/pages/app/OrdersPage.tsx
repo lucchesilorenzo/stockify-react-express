@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { orderStatuses } from "@/lib/data";
 import Spinner from "@/components/common/spinner";
 import H1 from "@/components/common/H1";
+import { useEffect } from "react";
 
 export default function OrdersPage() {
   const [
@@ -15,6 +16,10 @@ export default function OrdersPage() {
     { data: monthlyOrders = [], isLoading: monthlyOrdersLoading },
     { data: weeklyOrders = [], isLoading: weeklyOrdersLoading },
   ] = useOrders();
+
+  useEffect(() => {
+    document.title = "Orders | Stockify";
+  }, []);
 
   const isLoading =
     ordersLoading || monthlyOrdersLoading || weeklyOrdersLoading;
