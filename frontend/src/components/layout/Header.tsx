@@ -16,15 +16,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const navigate = useNavigate();
 
-  // function handleLogOut() {
-  //   startTransition(logOutAction);
-  // }
+  function handleLogOut() {
+    startTransition(() => {
+      localStorage.removeItem("token");
+      navigate("/login");
+    });
+  }
 
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
@@ -50,7 +54,7 @@ export default function Header() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => {}}>
+          <DropdownMenuItem onClick={handleLogOut}>
             {isPending ? "Logging out..." : "Log out"}
           </DropdownMenuItem>
         </DropdownMenuContent>

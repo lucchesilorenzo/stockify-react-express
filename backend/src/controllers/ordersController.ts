@@ -29,6 +29,7 @@ import { getCategoryQuery } from "../lib/queries/category-queries";
 
 // @desc    Get all orders
 // @route   GET /api/orders
+// @access  Protected
 export async function getOrders(req: Request, res: Response) {
   try {
     const orders = await getOrdersQuery();
@@ -40,6 +41,7 @@ export async function getOrders(req: Request, res: Response) {
 
 // @desc    Get monthly orders
 // @route   GET /api/orders/monthly
+// @access  Protected
 export async function getMonthlyOrders(req: Request, res: Response) {
   try {
     const monthlyOrders = await getMonthlyOrdersQuery();
@@ -51,6 +53,7 @@ export async function getMonthlyOrders(req: Request, res: Response) {
 
 // @desc    Get weekly orders
 // @route   GET /api/orders/weekly
+// @access  Protected
 export async function getWeeklyOrders(req: Request, res: Response) {
   try {
     const weeklyOrders = await getWeeklyOrdersQuery();
@@ -62,12 +65,11 @@ export async function getWeeklyOrders(req: Request, res: Response) {
 
 // @desc    Create order
 // @route   POST /api/orders
+// @access  Protected
 export async function createOrder(
   req: Request<{}, {}, unknown>,
-  res: Response,
+  res: Response
 ) {
-  // TODO: Check if user is authenticated
-
   // Validation
   const validatedOrder = orderFormSchema.safeParse(req.body);
   if (!validatedOrder.success) {
@@ -136,7 +138,7 @@ export async function createOrder(
   const orderDetails = {
     productId: product.id,
     supplierId,
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
     type: "NEW",
     quantity: validatedOrder.data.quantity,
     subtotal,
@@ -163,7 +165,7 @@ export async function createOrder(
   try {
     await updateWarehouseQuantityQuery(
       warehouse.id,
-      validatedOrder.data.quantity,
+      validatedOrder.data.quantity
     );
   } catch {
     res.status(500).json({ message: "Failed to update warehouse quantity." });
@@ -175,7 +177,7 @@ export async function createOrder(
     activity: "CREATED",
     entity: "Order",
     product: validatedOrder.data.name,
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {
@@ -192,7 +194,7 @@ export async function createOrder(
 // @route   POST /api/orders/restock
 export async function createRestockOrder(
   req: Request<{}, {}, unknown>,
-  res: Response,
+  res: Response
 ) {
   // TODO: Check if user is authenticated
 
@@ -205,7 +207,7 @@ export async function createRestockOrder(
 
   // Check if product exists
   const product = await getProductByIdQuery(
-    validatedRestockOrder.data.productId,
+    validatedRestockOrder.data.productId
   );
   if (!product) {
     res.status(404).json({ message: "Product not found." });
@@ -214,7 +216,7 @@ export async function createRestockOrder(
 
   // Check if quantity is present
   const options = await getProductOptionsQuery(
-    validatedRestockOrder.data.productId,
+    validatedRestockOrder.data.productId
   );
   if (!options) {
     res.status(404).json({ message: "Product options not found." });
@@ -280,7 +282,7 @@ export async function createRestockOrder(
   const orderDetails = {
     productId: validatedRestockOrder.data.productId,
     supplierId: validatedRestockOrder.data.supplierId,
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
     type: "RESTOCK",
     quantity: orderedQuantity,
     subtotal,
@@ -309,7 +311,7 @@ export async function createRestockOrder(
   try {
     await updateProductQuantityAndStatusQuery(
       validatedRestockOrder.data.productId,
-      validatedRestockOrder.data.quantity,
+      validatedRestockOrder.data.quantity
     );
   } catch {
     res.status(500).json({ message: "Failed to update product quantity." });
@@ -320,7 +322,7 @@ export async function createRestockOrder(
   try {
     await updateWarehouseQuantityQuery(
       warehouse.id,
-      validatedRestockOrder.data.quantity,
+      validatedRestockOrder.data.quantity
     );
   } catch {
     res.status(500).json({ message: "Failed to update warehouse quantity." });
@@ -332,7 +334,7 @@ export async function createRestockOrder(
     activity: "CREATED",
     entity: "Restock",
     product: product.name,
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {
@@ -347,12 +349,11 @@ export async function createRestockOrder(
 
 // @desc    Update order status
 // @route   PATCH /api/orders/:orderId/status
+// @access  Protected
 export async function updateOrderStatus(
   req: Request<{ orderId: unknown }>,
-  res: Response,
+  res: Response
 ) {
-  // TODO: Check if user is authenticated
-
   // Validation
   const validatedOrderId = orderIdSchema.safeParse(req.params.orderId);
   if (!validatedOrderId.success) {
@@ -372,7 +373,7 @@ export async function updateOrderStatus(
   const activity: ActivityEssentials = {
     activity: "UPDATED",
     entity: "Order",
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {

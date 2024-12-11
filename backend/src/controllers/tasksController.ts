@@ -26,6 +26,7 @@ import env from "../lib/env";
 
 // @desc    Get all tasks
 // @route   GET /api/tasks
+// @access  Protected
 export async function getTasks(req: Request, res: Response) {
   try {
     const tasks = await getTasksQuery();
@@ -37,9 +38,8 @@ export async function getTasks(req: Request, res: Response) {
 
 // @desc    Create a task
 // @route   POST /api/tasks
+// @access  Protected
 export async function createTask(req: Request<{}, {}, unknown>, res: Response) {
-  // TODO: Check if user is authenticated
-
   // Validation
   const validatedTask = taskFormSchema.safeParse(req.body);
   if (!validatedTask.success) {
@@ -50,7 +50,7 @@ export async function createTask(req: Request<{}, {}, unknown>, res: Response) {
   // Add user ID
   const taskWithUser = {
     ...validatedTask.data,
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   // Create task
@@ -71,7 +71,7 @@ export async function createTask(req: Request<{}, {}, unknown>, res: Response) {
   const activity: ActivityEssentials = {
     activity: "CREATED",
     entity: "Task",
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {
@@ -86,9 +86,10 @@ export async function createTask(req: Request<{}, {}, unknown>, res: Response) {
 
 // @desc    Generate tasks
 // @route   POST /api/tasks/generate
+// @access  Protected
 export async function generateTasks(
   req: Request<{}, {}, unknown>,
-  res: Response,
+  res: Response
 ) {
   const validatedPrompt = taskGeneratorFormSchema.safeParse(req.body);
   if (!validatedPrompt.success) {
@@ -130,12 +131,11 @@ export async function generateTasks(
 
 // @desc    Update a task
 // @route   PATCH /api/tasks/:taskId
+// @access  Protected
 export async function updateTask(
   req: Request<{ taskId: unknown }, {}, unknown>,
-  res: Response,
+  res: Response
 ) {
-  // TODO: Check if user is authenticated
-
   // Validation for task
   const validatedTask = taskEditFormSchema.safeParse(req.body);
   if (!validatedTask.success) {
@@ -168,7 +168,7 @@ export async function updateTask(
   const activity: ActivityEssentials = {
     activity: "UPDATED",
     entity: "Task",
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {
@@ -183,12 +183,11 @@ export async function updateTask(
 
 // @desc    Update task field
 // @route   PATCH /api/tasks/:taskId/field
+// @access  Protected
 export async function updateTaskField(
   req: Request<{ taskId: unknown }, {}, unknown>,
-  res: Response,
+  res: Response
 ) {
-  // TODO: Check if user is authenticated
-
   // Validation for task field and value
   const validatedTask = taskFieldAndValueSchema.safeParse(req.body);
   if (!validatedTask.success) {
@@ -247,7 +246,7 @@ export async function updateTaskField(
   const activity: ActivityEssentials = {
     activity: "UPDATED",
     entity: "Task",
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {
@@ -262,9 +261,8 @@ export async function updateTaskField(
 
 // @desc    Delete a task
 // @route   DELETE /api/tasks/:taskId
+// @access  Protected
 export async function deleteTask(req: Request, res: Response) {
-  // TODO: Check if user is authenticated
-
   // Validation
   const validatedTaskId = taskIdSchema.safeParse(req.params.taskId);
   if (!validatedTaskId.success) {
@@ -289,7 +287,7 @@ export async function deleteTask(req: Request, res: Response) {
   const activity: ActivityEssentials = {
     activity: "DELETED",
     entity: "Task",
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {

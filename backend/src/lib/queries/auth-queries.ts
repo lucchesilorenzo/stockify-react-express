@@ -2,7 +2,7 @@ import { UserEssentials } from "../types";
 
 import prisma from "../../../prisma/prisma";
 
-export async function createUser(user: UserEssentials) {
+export async function createUserQuery(user: UserEssentials) {
   const newUser = await prisma.user.create({
     data: user,
   });
@@ -10,7 +10,7 @@ export async function createUser(user: UserEssentials) {
   return newUser;
 }
 
-export async function getUserByEmail(email: UserEssentials["email"]) {
+export async function getUserByEmailQuery(email: UserEssentials["email"]) {
   const user = await prisma.user.findUnique({
     where: {
       email,

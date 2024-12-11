@@ -21,6 +21,7 @@ import {
 
 // @desc    Get all customers
 // @route   GET /api/customers
+// @access  Protected
 export async function getCustomers(req: Request, res: Response) {
   try {
     const customers = await getCustomersQuery();
@@ -32,9 +33,8 @@ export async function getCustomers(req: Request, res: Response) {
 
 // @desc    Create a new shipment
 // @route   POST /api/customers/shipment
+// @access  Protected
 export async function createCustomerShipment(req: Request, res: Response) {
-  // TODO: Check if user is authenticated
-
   // Validation
   const validatedShipment = shippingFormSchema.safeParse(req.body);
   if (!validatedShipment.success) {
@@ -73,7 +73,7 @@ export async function createCustomerShipment(req: Request, res: Response) {
     const activity: ActivityEssentials = {
       activity: "CREATED",
       entity: "Customer",
-      userId: "cm466qyf100004ov2f62p5gm6",
+      userId: req.userId,
     };
 
     try {
@@ -155,7 +155,7 @@ export async function createCustomerShipment(req: Request, res: Response) {
     activity: "CREATED",
     entity: "Shipment",
     product: validatedShipment.data.products.map((p) => p.name).join(", "),
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {
@@ -170,6 +170,7 @@ export async function createCustomerShipment(req: Request, res: Response) {
 
 // @desc    Update a customer
 // @route   PATCH /api/customers/:customerId
+// @access  Protected
 export async function updateCustomer(
   req: Request<{ customerId: unknown }, {}, unknown>,
   res: Response
@@ -211,7 +212,7 @@ export async function updateCustomer(
   const activity: ActivityEssentials = {
     activity: "UPDATED",
     entity: "Customer",
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {

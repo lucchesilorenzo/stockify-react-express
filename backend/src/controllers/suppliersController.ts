@@ -16,6 +16,7 @@ import {
 
 // @desc    Get all suppliers
 // @route   GET /api/suppliers
+// @access  Protected
 export async function getSuppliers(req: Request, res: Response) {
   try {
     const suppliers = await getSuppliersQuery();
@@ -27,12 +28,11 @@ export async function getSuppliers(req: Request, res: Response) {
 
 // @desc    Create a supplier
 // @route   POST /api/suppliers
+// @access  Protected
 export async function createSupplier(
   req: Request<{}, {}, unknown>,
-  res: Response,
+  res: Response
 ) {
-  // TODO: Check if user is authenticated
-
   // Validation
   const validatedSupplier = supplierFormSchema.safeParse(req.body);
   if (!validatedSupplier.success) {
@@ -58,7 +58,7 @@ export async function createSupplier(
   const activity: ActivityEssentials = {
     activity: "CREATED",
     entity: "Supplier",
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {
@@ -73,9 +73,10 @@ export async function createSupplier(
 
 // @desc    Update a supplier's rating
 // @route   PATCH /api/suppliers/:supplierId/rating
+// @access  Protected
 export async function updateSupplierRating(
   req: Request<{ supplierId: unknown }, {}, unknown>,
-  res: Response,
+  res: Response
 ) {
   // TODO: Check if user is authenticated
 
@@ -97,7 +98,7 @@ export async function updateSupplierRating(
   try {
     await updateSupplierRatingQuery(
       validatedSuppliedId.data,
-      validatedRating.data.rating,
+      validatedRating.data.rating
     );
   } catch {
     res.status(500).json({ message: "Failed to update supplier rating." });
@@ -108,7 +109,7 @@ export async function updateSupplierRating(
   const activity: ActivityEssentials = {
     activity: "UPDATED",
     entity: "Supplier",
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {

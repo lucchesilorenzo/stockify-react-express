@@ -33,8 +33,7 @@ export default function SettingsForm({ userSettings }: SettingsFormProps) {
   });
 
   async function onSubmit(data: TSettingsFormSchema) {
-    // TODO: update settings
-    // await updateSettings({ data, userId: userSettings.id });
+    await updateSettings(data);
   }
 
   return (

@@ -97,13 +97,13 @@ export default function CustomerEditForm({
             Phone <span className="text-red-600">*</span>
           </Label>
           <Controller
+            defaultValue={customer?.phone ?? ""}
             name="phone"
             control={control}
             render={({ field }) => (
               <PhoneInput
                 {...field}
                 id="phone"
-                value={customer?.phone ?? ""}
                 placeholder="Enter customer phone number"
                 autoComplete="tel"
                 defaultCountry="IT"

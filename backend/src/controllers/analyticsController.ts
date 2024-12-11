@@ -7,6 +7,7 @@ import {
 
 // @desc    Get products by category
 // @route   GET /api/analytics/products-by-category
+// @access  Protected
 export async function getProductsByCategory(req: Request, res: Response) {
   try {
     const products = await getProductsByCategoryQuery();
@@ -18,6 +19,7 @@ export async function getProductsByCategory(req: Request, res: Response) {
 
 // @desc    Get monthly inventory values
 // @route   GET /api/analytics/monthly-inventory-values
+// @access  Protected
 export async function getMonthlyInventoryValues(req: Request, res: Response) {
   try {
     const monthlyInventoryValues = await getMonthlyInventoryValuesQuery();
@@ -31,6 +33,7 @@ export async function getMonthlyInventoryValues(req: Request, res: Response) {
 
 // @desc    Get top products
 // @route   GET /api/analytics/top-products
+// @access  Protected
 export async function getTopProducts(req: Request, res: Response) {
   try {
     const topProducts = await getTopProductsQuery();

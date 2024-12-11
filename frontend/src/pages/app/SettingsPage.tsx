@@ -6,9 +6,7 @@ import { useSettings } from "@/hooks/queries/useSettings";
 import { useEffect } from "react";
 
 export default function SettingsPage() {
-  // TODO: fetch user settings
-  // const session = await checkAuth();
-  const { data: userSettings, isLoading } = useSettings(); // Hardcoded user ID
+  const { data: userSettings, isLoading } = useSettings();
 
   useEffect(() => {
     document.title = "Settings | Stockify";

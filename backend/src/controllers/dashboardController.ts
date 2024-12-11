@@ -9,6 +9,7 @@ import {
 
 // @desc    Get inventory value
 // @route   GET /api/dashboard/inventory-value
+// @access  Protected
 export async function getInventoryValue(req: Request, res: Response) {
   try {
     const inventoryValue = await getInventoryValueQuery();
@@ -20,6 +21,7 @@ export async function getInventoryValue(req: Request, res: Response) {
 
 // @desc    Get low stock products
 // @route   GET /api/dashboard/low-stock-products
+// @access  Protected
 export async function getLowStockProducts(req: Request, res: Response) {
   try {
     const lowStockProducts = await getLowStockProductsQuery();
@@ -31,6 +33,7 @@ export async function getLowStockProducts(req: Request, res: Response) {
 
 // @desc    Get shipped orders
 // @route   GET /api/dashboard/shipped-orders
+// @access  Protected
 export async function getShippedOrders(req: Request, res: Response) {
   try {
     const shippedOrders = await getShippedOrdersQuery();
@@ -42,6 +45,7 @@ export async function getShippedOrders(req: Request, res: Response) {
 
 // @desc    Get units in stock
 // @route   GET /api/dashboard/units-in-stock
+// @access  Protected
 export async function getUnitsInStock(req: Request, res: Response) {
   try {
     const unitsInStock = await getUnitsInStockQuery();
@@ -53,6 +57,7 @@ export async function getUnitsInStock(req: Request, res: Response) {
 
 // @desc    Get activities
 // @route   GET /api/dashboard/activities
+// @access  Protected
 export async function getActivities(req: Request, res: Response) {
   try {
     const activities = await getActivitiesQuery();

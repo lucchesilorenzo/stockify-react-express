@@ -12,13 +12,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useOrder } from "@/hooks/useOrder";
+import { useCreateOrder } from "@/hooks/mutations/orders/useCreateOrder";
 import { useProduct } from "@/hooks/useProduct";
 import {
   TOrderFormSchema,
   orderFormSchema,
 } from "@/lib/validations/order-validations";
-import { useCreateOrder } from "@/hooks/mutations/orders/useCreateOrder";
 
 type OrderFormProps = {
   onFormSubmit: () => void;
@@ -26,7 +25,7 @@ type OrderFormProps = {
 
 export default function OrderForm({ onFormSubmit }: OrderFormProps) {
   const { categories, warehouses } = useProduct();
-  const { suppliers } = useOrder();
+  const { suppliers } = useProduct();
   const { mutateAsync: createOrder } = useCreateOrder();
 
   const {

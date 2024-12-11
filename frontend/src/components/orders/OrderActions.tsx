@@ -15,7 +15,7 @@ import {
 import OrderInvoiceDialog from "./OrderInvoiceDialog";
 
 import { DetailedOrder } from "@/lib/types";
-import { useUpdateOrderStatus } from "@/hooks/mutations/useUpdateOrderStatus";
+import { useUpdateOrderStatus } from "@/hooks/mutations/orders/useUpdateOrderStatus";
 
 type OrderActionsProps = {
   order: DetailedOrder;

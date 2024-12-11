@@ -1,8 +1,10 @@
 import { routes } from "@/lib/data";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navigation() {
+  const location = useLocation();
+
   return (
     <nav>
       <ul className="flex flex-col px-2 font-medium lg:px-4">
@@ -12,7 +14,7 @@ export default function Navigation() {
               to={route.href}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                route.href === window.location.pathname
+                route.href === location.pathname
                   ? "bg-muted text-primary"
                   : "text-muted-foreground",
               )}

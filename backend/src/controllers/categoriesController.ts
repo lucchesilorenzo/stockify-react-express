@@ -3,6 +3,7 @@ import { getCategoriesQuery } from "../lib/queries/category-queries";
 
 // @desc    Get all categories
 // @route   GET /api/categories
+// @access  Protected
 export async function getCategories(req: Request, res: Response) {
   try {
     const categories = await getCategoriesQuery();

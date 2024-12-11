@@ -1,14 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
-import { LoadingButton } from "../common/LoadingButton";
 import EmailInput from "../common/EmailInput";
+import { LoadingButton } from "../common/LoadingButton";
 import PasswordInput from "../common/PasswordInput";
 
-// import { logInAction, signUpAction } from "@/app/actions/auth-actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useLogIn } from "@/hooks/mutations/auth/useLogIn";
+import { useSignUp } from "@/hooks/mutations/auth/useSignUp";
 import {
   TLogInSchema,
   TSignUpSchema,
@@ -21,6 +21,8 @@ type AuthFormProps = {
 };
 
 export default function AuthForm({ authType }: AuthFormProps) {
+  const { mutateAsync: signUp } = useSignUp();
+  const { mutateAsync: logIn } = useLogIn();
   const schema = authType === "signup" ? signUpSchema : logInSchema;
 
   const {
@@ -32,14 +34,11 @@ export default function AuthForm({ authType }: AuthFormProps) {
   });
 
   async function onSubmit(data: TSignUpSchema & TLogInSchema) {
-    // const result =
-    //   authType === "signup"
-    //     ? await signUpAction(data)
-    //     : await logInAction(data);
-    // if (result?.message) {
-    //   toast.error(result?.message);
-    //   return;
-    // }
+    if (authType === "signup") {
+      await signUp(data);
+    } else {
+      await logIn(data);
+    }
   }
 
   return (

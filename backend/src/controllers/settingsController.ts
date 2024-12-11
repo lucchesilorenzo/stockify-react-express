@@ -7,14 +7,14 @@ import { z } from "zod";
 import { settingsFormSchema } from "../lib/validations/settings-validations";
 
 // @desc    Get user's settings
-// @route   GET /api/settings/:userId
+// @route   GET /api/settings
+// @access  Protected
 export async function getSettingsByUserId(
-  req: Request<{ userId: unknown }, {}, unknown>,
-  res: Response,
+  req: Request<{}, {}, unknown>,
+  res: Response
 ) {
-  // TODO: Check if user is authenticated
-
-  const validatedUserId = z.string().cuid().safeParse(req.params.userId);
+  // Validation
+  const validatedUserId = z.string().cuid().safeParse(req.userId);
   if (!validatedUserId.success) {
     res.status(400).json({ message: "Invalid user ID." });
     return;
@@ -29,13 +29,13 @@ export async function getSettingsByUserId(
 }
 
 // @desc    Update user's settings
-// @route   PATCH /api/settings/:userId
+// @route   PATCH /api/settings
+// @access  Protected
 export async function updateSettingsByUserId(
-  req: Request<{ userId: unknown }, {}, unknown>,
-  res: Response,
+  req: Request<{}, {}, unknown>,
+  res: Response
 ) {
-  // TODO: Check if user is authenticated
-  const validatedUserId = z.string().cuid().safeParse(req.params.userId);
+  const validatedUserId = z.string().cuid().safeParse(req.userId);
   if (!validatedUserId.success) {
     res.status(400).json({ message: "Invalid user ID." });
     return;
@@ -52,12 +52,10 @@ export async function updateSettingsByUserId(
   try {
     await updateSettingsByUserIdQuery(
       validatedUserId.data,
-      validatedSettings.data,
+      validatedSettings.data
     );
+    res.status(200).json({ message: "Settings updated successfully." });
   } catch {
     res.status(500).json({ message: "Failed to update settings." });
-    return;
   }
-
-  res.status(200).json({ message: "Settings updated successfully." });
 }

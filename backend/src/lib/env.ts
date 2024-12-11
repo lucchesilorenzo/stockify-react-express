@@ -7,6 +7,7 @@ const envSchema = z.object({
   NODE_ENV: z
     .union([z.literal("development"), z.literal("production")])
     .default("development"),
+  JWT_SECRET: z.string(),
 });
 
 const env = envSchema.parse(process.env);

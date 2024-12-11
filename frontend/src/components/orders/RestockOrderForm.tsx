@@ -15,7 +15,7 @@ import {
 } from "../ui/select";
 
 import { useCreateRestockOrder } from "@/hooks/mutations/orders/useCreateRestockOrder";
-import { useOrder } from "@/hooks/useOrder";
+import { useProduct } from "@/hooks/useProduct";
 import {
   TRestockOrderFormSchema,
   restockOrderFormSchema,
@@ -30,7 +30,7 @@ export default function RestockOrderForm({
   onFormSubmit,
   products,
 }: RestockOrderFormProps) {
-  const { suppliers } = useOrder();
+  const { suppliers } = useProduct();
   const { mutateAsync: createRestockOrder } = useCreateRestockOrder();
 
   const {

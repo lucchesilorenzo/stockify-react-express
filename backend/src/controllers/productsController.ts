@@ -27,6 +27,7 @@ import {
 
 // @desc    Get all products
 // @route   GET /api/products
+// @access  Protected
 export async function getProducts(req: Request, res: Response) {
   try {
     const products = await getProductsQuery();
@@ -38,6 +39,7 @@ export async function getProducts(req: Request, res: Response) {
 
 // @desc    Get single product
 // @route   GET /api/products/:productId
+// @access  Protected
 export async function getProduct(
   req: Request<{ productId: unknown }>,
   res: Response
@@ -58,6 +60,7 @@ export async function getProduct(
 
 // @desc    Get products to restock
 // @route   GET /api/products/to-restock
+// @access  Protected
 export async function getProductsToRestock(req: Request, res: Response) {
   try {
     const productsToRestock = await getProductsToRestockQuery();
@@ -69,6 +72,7 @@ export async function getProductsToRestock(req: Request, res: Response) {
 
 // @desc    Get available products
 // @route   GET /api/products/available
+// @access  Protected
 export async function getAvailableProducts(req: Request, res: Response) {
   try {
     const products = await getAvailableProductsQuery();
@@ -80,6 +84,7 @@ export async function getAvailableProducts(req: Request, res: Response) {
 
 // @desc    Get product by slug
 // @route   GET /api/products/slug/:productSlug
+// @access  Protected
 export async function getProductBySlug(
   req: Request<{ productSlug: unknown }>,
   res: Response
@@ -100,12 +105,11 @@ export async function getProductBySlug(
 
 // @desc    Update product
 // @route   PATCH /api/products/:productId
+// @access  Protected
 export async function updateProduct(
   req: Request<{ productId: string }, {}, unknown>,
   res: Response
 ) {
-  // TODO: Add validation
-
   // Check if product ID is valid
   const validatedProductId = productIdSchema.safeParse(req.params.productId);
   if (!validatedProductId.success) {
@@ -208,7 +212,7 @@ export async function updateProduct(
     activity: "UPDATED",
     entity: "Product",
     product: productToUpdate.name,
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {
@@ -223,12 +227,11 @@ export async function updateProduct(
 
 // @desc    Update product status
 // @route   PATCH /api/products/:productId/status
+// @access  Protected
 export async function updateProductStatus(
   req: Request<{ productId: unknown }, {}, unknown>,
   res: Response
 ) {
-  // TODO: Check if user is authenticated
-
   // Validation for product ID
   const validatedProductId = productIdSchema.safeParse(req.params.productId);
   if (!validatedProductId.success) {
@@ -271,7 +274,7 @@ export async function updateProductStatus(
     }`,
     entity: "Product",
     product: product.name,
-    userId: "cm466qyf100004ov2f62p5gm6",
+    userId: req.userId,
   };
 
   try {

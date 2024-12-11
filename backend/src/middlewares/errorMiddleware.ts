@@ -1,12 +1,18 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
+import env from "../lib/env";
 
-export default function errorHandler(
-  err: any,
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any*/
+export default function errorMiddleware(
+  error: any,
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) {
-  res
-    .status(err.status || 500)
-    .json({ message: err.message || "Internal Server Error" });
+  res.status(error.status || 500).json({
+    error: "Internal Server Error",
+    message:
+      env.NODE_ENV === "development"
+        ? error.stack
+        : "An unexpected error occurred.",
+  });
 }

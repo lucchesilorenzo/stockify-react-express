@@ -45,3 +45,5 @@ export function parseDates<T>(data: T): T {
 ```
 
 - Attribute crossOrigin="anonymous" to <img> was needed to enable CORS to read the image from the file system.
+
+- Script: `"dev": "node -r ts-node/register --watch --env-file=.env ./src/server.ts"` in order to get rid of `nodemon` and `dotenv` dependencies.
