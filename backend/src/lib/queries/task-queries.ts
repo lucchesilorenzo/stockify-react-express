@@ -7,7 +7,7 @@ import {
   TTaskFieldAndValue,
 } from "../validations/task-validations";
 
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 
 export async function getTasksQuery() {
   const tasks = await prisma.task.findMany({
@@ -45,7 +45,7 @@ export async function deleteTaskByIdQuery(taskId: Task["id"]) {
 export async function updateTaskFieldQuery(
   taskField: TTaskFieldAndValue["field"],
   taskValue: TaskLabel["value"] | TaskStatus["value"] | TaskPriority["value"],
-  taskId: Task["id"],
+  taskId: Task["id"]
 ) {
   const updatedTask = await prisma.task.update({
     where: {
@@ -61,7 +61,7 @@ export async function updateTaskFieldQuery(
 
 export async function updateTaskQuery(
   task: TTaskEditFormSchema,
-  taskId: Task["id"],
+  taskId: Task["id"]
 ) {
   const updatedTask = await prisma.task.update({
     where: {

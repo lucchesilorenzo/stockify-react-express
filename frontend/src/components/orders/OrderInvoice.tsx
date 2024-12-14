@@ -39,7 +39,7 @@ export default function OrderInvoice({ order }: OrderInvoiceProps) {
     {
       id: 4,
       label: "Tax",
-      amount: order.tax,
+      amount: order.vat,
     },
     {
       id: 5,

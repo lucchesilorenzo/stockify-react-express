@@ -157,7 +157,7 @@ export const columns: ColumnDef<TaskWithUser>[] = [
     cell: ({ row }) => {
       const dueDate: Task["dueDate"] = row.getValue("dueDate");
 
-      return <div className="text-center">{format(dueDate, "yyyy-MM-dd")}</div>;
+      return <div>{format(dueDate, "yyyy-MM-dd")}</div>;
     },
   },
   {

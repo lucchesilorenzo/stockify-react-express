@@ -7,7 +7,7 @@ Each task should have the following structure:
     "priority": "LOW" | "MEDIUM" | "HIGH",
     "label": "INVENTORY" | "ORDER" | "SHIPPING" | "QUALITY" | "CUSTOMER" | "MAINTENANCE",
     "dueDate": "2024-11-23T12:00:00",
-    "userId": session.user.id
+    "userId": "req.userId"
   }
 ]
 `;
@@ -21,7 +21,7 @@ Here is an example of the expected output:
     "priority": "HIGH",
     "label": "INVENTORY",
     "dueDate": "2024-11-30T09:00:00",
-    "userId": session.user.id
+    "userId": "req.userId"
   },
   {
     "title": "Ship order #1234",
@@ -29,7 +29,7 @@ Here is an example of the expected output:
     "priority": "MEDIUM",
     "label": "SHIPPING",
     "dueDate": "2024-11-25T12:00:00",
-    "userId": session.user.id
+    "userId": "req.userId"
   },
 ]
 `;

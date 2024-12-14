@@ -21,7 +21,7 @@ export const STATUS_CONFIG: Record<
 } as const;
 
 export const DIALOG_BTN_VARIANTS: Record<
-  Exclude<FormDialogActionType, "editTask" | "generateTask">,
+  Exclude<FormDialogActionType, "editTask" | "generateTasks">,
   {
     variant: "default" | "accent" | "outline";
     size: "sm" | "default" | "icon";

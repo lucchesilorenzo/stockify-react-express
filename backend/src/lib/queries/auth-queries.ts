@@ -1,6 +1,6 @@
 import { UserEssentials } from "../types";
 
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 
 export async function createUserQuery(user: UserEssentials) {
   const newUser = await prisma.user.create({

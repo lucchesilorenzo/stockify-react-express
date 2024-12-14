@@ -1,6 +1,6 @@
 import { Warehouse } from "@prisma/client";
 
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 
 export async function getWarehousesQuery() {
   const warehouses = await prisma.warehouse.findMany();
@@ -20,7 +20,7 @@ export async function getWarehouseQuery(warehouseId: Warehouse["id"]) {
 
 export async function updateWarehouseQuantityQuery(
   warehouseId: Warehouse["id"],
-  quantity: Warehouse["quantity"],
+  quantity: Warehouse["quantity"]
 ) {
   const warehouse = await prisma.warehouse.update({
     where: {
@@ -38,7 +38,7 @@ export async function updateWarehouseQuantityQuery(
 
 export async function decrementWarehouseQuantityQuery(
   warehouseId: Warehouse["id"],
-  quantity: Warehouse["quantity"],
+  quantity: Warehouse["quantity"]
 ) {
   const warehouse = await prisma.warehouse.update({
     where: {
@@ -58,7 +58,7 @@ export async function updateWarehouseQuantitiesQuery(
   warehousesToUpdate: {
     warehouseId: Warehouse["id"];
     quantity: Warehouse["quantity"];
-  }[],
+  }[]
 ) {
   const updatePromises = warehousesToUpdate.map(
     async ({ warehouseId, quantity }) => {
@@ -80,7 +80,7 @@ export async function updateWarehouseQuantitiesQuery(
           },
         });
       }
-    },
+    }
   );
 
   const updatedWarehouses = await Promise.all(updatePromises);

@@ -5,4 +5,4 @@ export type FormDialogActionType =
   | "addSupplier"
   | "addTask"
   | "editTask"
-  | "generateTask";
+  | "generateTasks";

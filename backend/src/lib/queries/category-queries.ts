@@ -1,6 +1,6 @@
 import { Category } from "@prisma/client";
 
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 
 export async function getCategoriesQuery() {
   const categories = await prisma.category.findMany();

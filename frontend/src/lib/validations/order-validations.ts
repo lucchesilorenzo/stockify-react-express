@@ -10,6 +10,9 @@ export const orderFormSchema = z
     categoryId: z.string({
       required_error: "Category is required.",
     }),
+    vatRate: z.string({
+      required_error: "VAT rate is required.",
+    }),
     warehouseId: z.string({
       required_error: "Warehouse is required.",
     }),

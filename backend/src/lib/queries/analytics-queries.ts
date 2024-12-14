@@ -1,8 +1,7 @@
 import { format, startOfMonth } from "date-fns";
 
 import { COLORS } from "../constants";
-
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 
 export async function getProductsByCategoryQuery() {
   // Get products grouped by category
@@ -29,23 +28,20 @@ export async function getProductsByCategoryQuery() {
     category: category.name,
     units: category.products.reduce(
       (total, product) => total + product.quantity,
-      0,
+      0
     ),
     fill: `hsl(${COLORS[index % COLORS.length]}`,
   }));
 
   // Take pieChartData and return pieChartConfig with category name and color
-  const pieChartConfig = pieChartData.reduce(
-    (config, data) => {
-      config[data.category] = {
-        label: data.category,
-        color: data.fill,
-      };
+  const pieChartConfig = pieChartData.reduce((config, data) => {
+    config[data.category] = {
+      label: data.category,
+      color: data.fill,
+    };
 
-      return config;
-    },
-    {} as Record<string, { label: string; color: string }>,
-  );
+    return config;
+  }, {} as Record<string, { label: string; color: string }>);
 
   return { pieChartData, pieChartConfig };
 }
@@ -68,7 +64,7 @@ export async function updateCurrentMonthInventoryValueQuery() {
 
   const totalValue = inventoryData.reduce(
     (total, { price, quantity }) => total + price * quantity,
-    0,
+    0
   );
 
   const currentMonth = startOfMonth(new Date());

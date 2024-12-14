@@ -61,12 +61,12 @@ export default function MainAlertDialog({
           <AlertDialogTitle>
             {type === "product" &&
               `Are you sure you want to ${statusTitleInfo} this product?`}
-            {type === "order" && "Are you sure you want to ship this order?"}
+            {type === "order" && "Confirm product delivery"}
           </AlertDialogTitle>
           <AlertDialogDescription>
             {type === "product" &&
               `This product will be ${statusDescriptionInfo}.`}
-            {type === "order" && "This order will be shipped."}
+            {type === "order" && "This will mark the order as delivered."}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

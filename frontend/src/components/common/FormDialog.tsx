@@ -7,7 +7,7 @@ import OrderForm from "../orders/OrderForm";
 import RestockOrderForm from "../orders/RestockOrderForm";
 import SupplierForm from "../suppliers/SupplierForm";
 import TaskForm from "../tasks/task-form/TaskForm";
-import TaskGenerationForm from "../tasks/GenerateTaskForm";
+import TaskGenerationForm from "../tasks/TaskGenerationForm";
 import { Button } from "../ui/button";
 
 import {
@@ -52,7 +52,7 @@ export default function FormDialog({
     setOpen(false);
   }
 
-  if (actionType === "editTask" || actionType === "generateTask") {
+  if (actionType === "editTask" || actionType === "generateTasks") {
     return (
       <Dialog open={isOpen} onOpenChange={setOpen}>
         <DialogTrigger asChild>{children}</DialogTrigger>
@@ -60,7 +60,7 @@ export default function FormDialog({
           <DialogHeader>
             <DialogTitle>
               {actionType === "editTask" && "Edit task"}
-              {actionType === "generateTask" && "Generate task"}
+              {actionType === "generateTasks" && "Generate tasks"}
             </DialogTitle>
             <DialogDescription>
               Fill in the details below. Ensure that all required fields are
@@ -70,7 +70,7 @@ export default function FormDialog({
           {actionType === "editTask" && (
             <TaskEditForm onFormSubmit={handleFormSubmit} task={task!} />
           )}
-          {actionType === "generateTask" && (
+          {actionType === "generateTasks" && (
             <TaskGenerationForm onFormSubmit={handleFormSubmit} />
           )}
         </DialogContent>

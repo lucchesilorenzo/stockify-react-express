@@ -16,7 +16,7 @@ type GenerateTaskFormProps = {
   onFormSubmit: () => void;
 };
 
-export default function GenerateTaskForm({
+export default function TaskGenerationForm({
   onFormSubmit,
 }: GenerateTaskFormProps) {
   const { mutateAsync: generateTasks } = useGenerateTasks();
@@ -42,7 +42,7 @@ export default function GenerateTaskForm({
           </Label>
           <Textarea
             id="prompt"
-            placeholder="Generate a task..."
+            placeholder="Generate tasks..."
             rows={3}
             {...register("prompt")}
           />

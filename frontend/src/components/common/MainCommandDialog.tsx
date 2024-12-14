@@ -30,6 +30,20 @@ export function MainCommandDialog() {
 
   const navigate = useNavigate();
 
+  let font;
+
+  switch (fontSize) {
+    case "text-md":
+      font = "left-[220px]";
+      break;
+    case "text-lg":
+      font = "left-[210px]";
+      break;
+    case "text-xl":
+      font = "left-[200px]";
+      break;
+  }
+
   useEffect(() => {
     function down(e: KeyboardEvent) {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -55,11 +69,7 @@ export function MainCommandDialog() {
         <kbd
           className={cn(
             "pointer-events-none absolute top-2 inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100",
-            fontSize === "text-md"
-              ? "left-[220px]"
-              : fontSize === "text-lg"
-                ? "left-[210px]"
-                : "left-[200px]",
+            font,
           )}
         >
           <span className="text-xs">Ctrl + K</span>
@@ -128,14 +138,14 @@ export function MainCommandDialog() {
                 setGenerateTaskOpen(true);
               }}
             >
-              <Brain className="mr-3 h-5 w-5" /> Generate Task
+              <Brain className="mr-3 h-5 w-5" /> Generate Tasks
             </CommandItem>
           </CommandGroup>
         </CommandList>
       </CommandDialog>
 
       <FormDialog
-        actionType="generateTask"
+        actionType="generateTasks"
         open={generateTaskOpen}
         onOpenChange={setGenerateTaskOpen}
       />

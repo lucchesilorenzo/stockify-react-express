@@ -1,0 +1,16 @@
+{
+  "name": "stockify",
+  "version": "1.0.0",
+  "description": "Stockify",
+  "scripts": {
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "install-all": "cd frontend && npm install && cd ../backend && npm install"
+  },
+  "author": "Lorenzo Lucchesi",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

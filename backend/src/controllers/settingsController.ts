@@ -6,7 +6,7 @@ import {
 import { z } from "zod";
 import { settingsFormSchema } from "../lib/validations/settings-validations";
 
-// @desc    Get user's settings
+// @desc    Get user settings
 // @route   GET /api/settings
 // @access  Protected
 export async function getSettingsByUserId(
@@ -28,7 +28,7 @@ export async function getSettingsByUserId(
   }
 }
 
-// @desc    Update user's settings
+// @desc    Update user settings
 // @route   PATCH /api/settings
 // @access  Protected
 export async function updateSettingsByUserId(

@@ -1,7 +1,7 @@
 import { Order } from "@prisma/client";
 import { endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
 
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 import { OrderEssentials } from "../types";
 
 export async function getOrdersQuery() {

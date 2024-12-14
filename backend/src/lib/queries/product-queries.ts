@@ -4,7 +4,7 @@ import { ProductEssentials } from "../types";
 
 import { TProductEditFormSchema } from "../validations/product-validations";
 
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 
 export async function getProductsQuery() {
   const products = await prisma.product.findMany({
@@ -112,7 +112,7 @@ export async function createProductQuery(product: ProductEssentials) {
 
 export async function updateProductByIdQuery(
   productId: Product["id"],
-  product: TProductEditFormSchema,
+  product: TProductEditFormSchema
 ) {
   await prisma.product.update({
     where: {
@@ -154,7 +154,7 @@ export async function restoreProductByIdQuery(productId: Product["id"]) {
 
 export async function updateProductQuantityAndStatusQuery(
   productId: Product["id"],
-  quantity: Product["quantity"],
+  quantity: Product["quantity"]
 ) {
   const productToUpdate = await prisma.product.update({
     where: {
@@ -172,7 +172,7 @@ export async function updateProductQuantityAndStatusQuery(
 }
 
 export async function updateProductQuantitiesAndStatusQuery(
-  productsToUpdate: { id: Product["id"]; quantity: Product["quantity"] }[],
+  productsToUpdate: { id: Product["id"]; quantity: Product["quantity"] }[]
 ) {
   const updatePromises = productsToUpdate.map(async ({ id, quantity }) => {
     const product = await prisma.product.findUnique({

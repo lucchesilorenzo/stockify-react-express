@@ -11,6 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCustomer } from "@/hooks/useCustomer";
+import { Separator } from "@/components/ui/separator";
+import CustomerCSVUpload from "./CustomerCSVUpload";
 
 type CustomerInfoFormSelectProps = {
   customers: Customer[];
@@ -25,34 +27,42 @@ export default function CustomerInfoFormSelect({
 
   return (
     <div className="flex items-center gap-x-4">
-      <Select
-        value={selectedCustomer ?? ""}
-        onValueChange={(value) => handleSelectCustomer(value)}
-      >
-        <SelectTrigger id="customer-select" className="w-full">
-          <SelectValue placeholder="Select existing customer" />
-        </SelectTrigger>
-        <SelectContent>
-          <ScrollArea className="max-h-60 overflow-y-auto">
-            {customers.map((customer) => (
-              <SelectItem key={customer.id} value={customer.id}>
-                {`${customer.firstName} ${customer.lastName} (${customer.email})`}
-              </SelectItem>
-            ))}
-          </ScrollArea>
-        </SelectContent>
-      </Select>
+      {customers.length > 0 && (
+        <>
+          <Select
+            value={selectedCustomer ?? ""}
+            onValueChange={(value) => handleSelectCustomer(value)}
+          >
+            <SelectTrigger id="customer-select" className="w-full">
+              <SelectValue placeholder="Select existing customer" />
+            </SelectTrigger>
+            <SelectContent>
+              <ScrollArea className="max-h-60 overflow-y-auto">
+                {customers.map((customer) => (
+                  <SelectItem key={customer.id} value={customer.id}>
+                    {`${customer.firstName} ${customer.lastName} (${customer.email})`}
+                  </SelectItem>
+                ))}
+              </ScrollArea>
+            </SelectContent>
+          </Select>
 
-      {selectedCustomer && (
-        <Button
-          onClick={onClearAll}
-          variant="outline"
-          size="icon"
-          className="shrink-0"
-        >
-          <X className="h-5 w-5" />
-        </Button>
+          {selectedCustomer && (
+            <Button
+              onClick={onClearAll}
+              variant="outline"
+              size="icon"
+              className="shrink-0"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          )}
+
+          <Separator orientation="vertical" className="h-10" />
+        </>
       )}
+
+      <CustomerCSVUpload />
     </div>
   );
 }

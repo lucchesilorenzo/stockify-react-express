@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import axios from "axios";
 import { Request, Response } from "express";
 import { Ollama } from "ollama";
+import env from "../lib/env";
 import { exampleOutput, taskStructure } from "../lib/prompts";
 import { createActivityQuery } from "../lib/queries/dashboard-queries";
 import {
@@ -22,7 +23,6 @@ import {
   taskPrioritySchema,
   taskStatusSchema,
 } from "../lib/validations/task-validations";
-import env from "../lib/env";
 
 // @desc    Get all tasks
 // @route   GET /api/tasks
@@ -36,7 +36,7 @@ export async function getTasks(req: Request, res: Response) {
   }
 }
 
-// @desc    Create a task
+// @desc    Create task
 // @route   POST /api/tasks
 // @access  Protected
 export async function createTask(req: Request<{}, {}, unknown>, res: Response) {
@@ -119,7 +119,11 @@ export async function generateTasks(
     const { tasks } = JSON.parse(res.message.content);
 
     for (const task of tasks) {
-      await axios.post(`${env.API_URL}/api/tasks`, task);
+      await axios.post(`${env.API_URL}/api/tasks`, task, {
+        headers: {
+          Authorization: req.headers.authorization,
+        },
+      });
     }
   } catch {
     res.status(500).json({ message: "Failed to generate tasks." });
@@ -129,7 +133,7 @@ export async function generateTasks(
   res.status(201).json({ message: "Tasks created successfully." });
 }
 
-// @desc    Update a task
+// @desc    Update task
 // @route   PATCH /api/tasks/:taskId
 // @access  Protected
 export async function updateTask(
@@ -259,7 +263,7 @@ export async function updateTaskField(
   res.status(200).json({ message: "Task updated successfully." });
 }
 
-// @desc    Delete a task
+// @desc    Delete task
 // @route   DELETE /api/tasks/:taskId
 // @access  Protected
 export async function deleteTask(req: Request, res: Response) {

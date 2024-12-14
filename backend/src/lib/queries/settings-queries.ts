@@ -2,11 +2,11 @@ import { User } from "@prisma/client";
 
 import { TSettingsFormSchema } from "../validations/settings-validations";
 
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 
 export async function updateSettingsByUserIdQuery(
   id: User["id"],
-  settings: TSettingsFormSchema,
+  settings: TSettingsFormSchema
 ) {
   const updatedSettings = await prisma.user.update({
     where: {

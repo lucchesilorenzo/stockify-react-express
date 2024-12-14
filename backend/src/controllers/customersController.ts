@@ -3,6 +3,7 @@ import {
   createCustomerItemsQuery,
   createCustomerQuery,
   createCustomerShipmentQuery,
+  createCustomersQuery,
   getCustomerByEmailQuery,
   getCustomersQuery,
   updateCustomerByIdQuery,
@@ -14,6 +15,7 @@ import { updateWarehouseQuantitiesQuery } from "../lib/queries/warehouse-queries
 import { updateProductQuantitiesAndStatusQuery } from "../lib/queries/product-queries";
 import { Prisma } from "@prisma/client";
 import {
+  CSVCustomerEssentials,
   customerEditFormSchema,
   customerIdSchema,
   shippingFormSchema,
@@ -29,6 +31,57 @@ export async function getCustomers(req: Request, res: Response) {
   } catch {
     res.status(500).json({ message: "Failed to get customers." });
   }
+}
+
+// @desc    Create new customers
+// @route   POST /api/customers
+// @access  Protected
+export async function createCustomers(req: Request, res: Response) {
+  // Validation
+  const validatedCustomerData = CSVCustomerEssentials.safeParse(req.body);
+  if (!validatedCustomerData.success) {
+    res.status(400).json({ message: "Invalid CSV file format." });
+    return;
+  }
+
+  // Add "+" to phone numbers that don't have it
+  const updatedCustomerData = validatedCustomerData.data.map((customer) => {
+    if (!customer.phone.startsWith("+")) {
+      customer.phone = `+${customer.phone}`;
+    }
+    return customer;
+  });
+
+  // Create customers
+  try {
+    await createCustomersQuery(updatedCustomerData);
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        res
+          .status(400)
+          .json({ message: "Email or phone have already been taken." });
+      }
+    }
+    res.status(500).json({ message: "Failed to create customers." });
+    return;
+  }
+
+  // Create new activity
+  const activity: ActivityEssentials = {
+    activity: "CREATED",
+    entity: "Customer",
+    userId: req.userId,
+  };
+
+  try {
+    await createActivityQuery(activity);
+  } catch {
+    res.status(500).json({ message: "Failed to create activity." });
+    return;
+  }
+
+  res.status(201).json({ message: "Customers created successfully." });
 }
 
 // @desc    Create a new shipment
@@ -92,7 +145,7 @@ export async function createCustomerShipment(req: Request, res: Response) {
   try {
     const customerShipment = await createCustomerShipmentQuery({ customerId });
 
-    // Update customer shipment status in 1 minute
+    // Update customer shipment status in 5 minutes
     setTimeout(async () => {
       try {
         await updateCustomerShipmentStatusQuery(customerShipment.id);
@@ -102,7 +155,7 @@ export async function createCustomerShipment(req: Request, res: Response) {
           .json({ message: "Failed to update customer shipment." });
         return;
       }
-    }, 60000);
+    }, 5 * 60 * 1000);
 
     // Create items for shipment
     const customerShipmentItems = validatedShipment.data.products.map((p) => ({
@@ -168,7 +221,7 @@ export async function createCustomerShipment(req: Request, res: Response) {
   res.status(201).json({ message: "Shipment created successfully." });
 }
 
-// @desc    Update a customer
+// @desc    Update customer
 // @route   PATCH /api/customers/:customerId
 // @access  Protected
 export async function updateCustomer(

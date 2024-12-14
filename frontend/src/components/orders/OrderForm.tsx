@@ -18,6 +18,7 @@ import {
   TOrderFormSchema,
   orderFormSchema,
 } from "@/lib/validations/order-validations";
+import { categoryVATRates } from "@/lib/data";
 
 type OrderFormProps = {
   onFormSubmit: () => void;
@@ -45,21 +46,25 @@ export default function OrderForm({ onFormSubmit }: OrderFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
       <div className="space-y-6">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <Label htmlFor="name">
-              Name <span className="text-red-600">*</span>
-            </Label>
-            <Input
-              id="name"
-              placeholder="Enter product name"
-              {...register("name")}
-            />
-            {errors.name && (
-              <p className="px-1 text-sm text-red-600">{errors.name.message}</p>
-            )}
-          </div>
+        <div className="text-sm text-green-600">
+          Orders exceeding 50,00 € in product value qualify for free shipping.
+        </div>
 
+        <div className="space-y-1">
+          <Label htmlFor="name">
+            Name <span className="text-red-600">*</span>
+          </Label>
+          <Input
+            id="name"
+            placeholder="Enter product name"
+            {...register("name")}
+          />
+          {errors.name && (
+            <p className="px-1 text-sm text-red-600">{errors.name.message}</p>
+          )}
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
             <Label htmlFor="categoryId">
               Category <span className="text-red-600">*</span>
@@ -71,7 +76,7 @@ export default function OrderForm({ onFormSubmit }: OrderFormProps) {
               <SelectContent>
                 {categories.map((category) => (
                   <SelectItem key={category.id} value={category.id}>
-                    {category.name} - Tax: {category.taxRate}%
+                    {category.name}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -79,6 +84,29 @@ export default function OrderForm({ onFormSubmit }: OrderFormProps) {
             {errors.categoryId && (
               <p className="px-1 text-sm text-red-600">
                 {errors.categoryId.message}
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-1">
+            <Label htmlFor="vatRate">
+              VAT rate (%) <span className="text-red-600">*</span>
+            </Label>
+            <Select onValueChange={(value) => setValue("vatRate", value)}>
+              <SelectTrigger id="vatRate">
+                <SelectValue placeholder="Select a VAT rate" />
+              </SelectTrigger>
+              <SelectContent>
+                {categoryVATRates.map((vatRate) => (
+                  <SelectItem key={vatRate.value} value={vatRate.value}>
+                    {vatRate.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {errors.vatRate && (
+              <p className="px-1 text-sm text-red-600">
+                {errors.vatRate.message}
               </p>
             )}
           </div>

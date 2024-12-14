@@ -2,7 +2,7 @@ import { Supplier } from "@prisma/client";
 
 import { TSupplierFormSchema } from "../validations/supplier-validations";
 
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 
 export async function getSuppliersQuery() {
   const suppliers = await prisma.supplier.findMany({
@@ -28,7 +28,7 @@ export async function createSupplierQuery(supplier: TSupplierFormSchema) {
 
 export async function updateSupplierRatingQuery(
   supplierId: Supplier["id"],
-  rating: Supplier["rating"],
+  rating: Supplier["rating"]
 ) {
   const updatedSupplier = await prisma.supplier.update({
     where: {

@@ -53,9 +53,10 @@ model Product {
   price       Float
   quantity    Int
   maxQuantity Int
+  vatRate     Int
   description String?
   status      String   @default("IN_STOCK")
-  image       String   @default("uploads/placeholder.svg")
+  image       String   @default("/placeholder.svg")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -74,7 +75,7 @@ model Order {
   quantity   Int
   subtotal   Float
   shipping   Float
-  tax        Float
+  vat        Float
   totalPrice Float
   status     String   @default("SHIPPED")
   createdAt  DateTime @default(now())
@@ -150,7 +151,6 @@ model ShipmentItem {
 model Category {
   id        String   @id @default(cuid())
   name      String   @unique
-  taxRate   Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

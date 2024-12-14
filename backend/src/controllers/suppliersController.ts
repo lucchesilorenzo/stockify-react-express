@@ -26,7 +26,7 @@ export async function getSuppliers(req: Request, res: Response) {
   }
 }
 
-// @desc    Create a supplier
+// @desc    Create supplier
 // @route   POST /api/suppliers
 // @access  Protected
 export async function createSupplier(
@@ -71,7 +71,7 @@ export async function createSupplier(
   res.status(201).json({ message: "Supplier created successfully." });
 }
 
-// @desc    Update a supplier's rating
+// @desc    Update supplier rating
 // @route   PATCH /api/suppliers/:supplierId/rating
 // @access  Protected
 export async function updateSupplierRating(

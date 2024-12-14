@@ -23,6 +23,7 @@ import {
 
 import {
   OrderStatus,
+  CategoryVATRates,
   OrderType,
   ProductStatus,
   TaskLabel,
@@ -86,6 +87,12 @@ export const fontSizeData = [
   { name: "Medium", value: "text-md", icon: FontSizeIcon },
   { name: "Large", value: "text-lg", icon: FontSizeIcon },
   { name: "Extra Large", value: "text-xl", icon: FontSizeIcon },
+];
+
+export const categoryVATRates: CategoryVATRates[] = [
+  { value: "4", label: "4%" },
+  { value: "10", label: "10%" },
+  { value: "22", label: "22%" },
 ];
 
 export const productStatuses: ProductStatus[] = [

@@ -106,7 +106,11 @@ export const columns: ColumnDef<DashboardActivity>[] = [
     cell: ({ row }) => {
       const date: Activity["createdAt"] = row.getValue("createdAt");
 
-      return <div>{format(date, "yyyy-MM-dd")}</div>;
+      return (
+        <div className="min-w-[150px] text-center">
+          {format(date, "yyyy-MM-dd | HH:mm")}
+        </div>
+      );
     },
   },
   {

@@ -11,6 +11,7 @@ export function useUpdateOrderStatus() {
       updateData(`/orders/${orderId}/status`),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success(response.message);
     },
     onError: (error) => {

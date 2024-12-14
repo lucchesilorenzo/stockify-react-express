@@ -1,6 +1,6 @@
 import { ActivityEssentials } from "../types";
 
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 
 export async function getInventoryValueQuery() {
   const products = await prisma.product.findMany({
@@ -20,7 +20,7 @@ export async function getInventoryValueQuery() {
 
   const inventoryValue = products.reduce(
     (total, { quantity, price }) => total + quantity * price,
-    0,
+    0
   );
 
   return inventoryValue;
@@ -42,7 +42,7 @@ export async function getLowStockProductsQuery() {
   });
 
   const lowStockProducts = products.filter(
-    ({ quantity }) => quantity <= 10,
+    ({ quantity }) => quantity <= 10
   ).length;
 
   return lowStockProducts;
@@ -74,7 +74,7 @@ export async function getUnitsInStockQuery() {
 
   const totalUnitsInStock = unitsInStock.reduce(
     (total, { quantity }) => total + quantity,
-    0,
+    0
   );
 
   return totalUnitsInStock;

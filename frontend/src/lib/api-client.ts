@@ -32,6 +32,7 @@ api.interceptors.response.use(
           "An error occurred while making the request.",
       );
     } else {
+      console.error(error.message);
       throw new Error("An unexpected error occurred.");
     }
   },

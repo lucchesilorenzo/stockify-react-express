@@ -1,0 +1,11 @@
+firstName,lastName,email,phone,address,city,zipCode
+Lorenzo,Bianchi,lorenzo.bianchi@example.com,391234567890,Via Roma 1,Milano,20100
+Giulia,Verdi,giulia.verdi@example.com,39987654321,Via Milano 2,Torino,10100
+Marco,Rossi,marco.rossi@example.com,391122334455,Via Torino 3,Genova,16100
+Sara,Neri,sara.neri@example.com,392233445566,Corso Italia 4,Napoli,80100
+Andrea,Gialli,andrea.gialli@example.com,393344556677,Piazza Dante 5,Firenze,50100
+Francesca,Blu,francesca.blu@example.com,394455667788,Via Venezia 6,Bologna,40100
+Davide,Azzurri,davide.azzurri@example.com,395566778899,Via Verona 7,Verona,37100
+Elisa,Marroni,elisa.marroni@example.com,396677889900,Via Napoli 8,Palermo,90100
+Matteo,Grigi,matteo.grigi@example.com,397788990011,Via Palermo 9,Catania,95100
+Chiara,Viola,chiara.viola@example.com,398899001122,Via Firenze 10,Bari,70100

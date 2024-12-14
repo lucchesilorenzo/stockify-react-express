@@ -2,7 +2,7 @@ import { Customer, CustomerShipment } from "@prisma/client";
 
 import { CustomerEssentials, CustomerShipmentEssentials } from "../types";
 
-import prisma from "../../../prisma/prisma";
+import prisma from "../prisma";
 
 export async function getCustomersQuery() {
   const customers = await prisma.customer.findMany({
@@ -28,7 +28,7 @@ export async function getCustomersQuery() {
 }
 
 export async function getCustomerByEmailQuery(
-  email: CustomerEssentials["email"],
+  email: CustomerEssentials["email"]
 ) {
   const customer = await prisma.customer.findUnique({
     where: {
@@ -47,8 +47,16 @@ export async function createCustomerQuery(customer: CustomerEssentials) {
   return newCustomer;
 }
 
+export async function createCustomersQuery(customers: CustomerEssentials[]) {
+  const newCustomers = await prisma.customer.createMany({
+    data: customers,
+  });
+
+  return newCustomers;
+}
+
 export async function createCustomerShipmentQuery(
-  shipment: CustomerShipmentEssentials,
+  shipment: CustomerShipmentEssentials
 ) {
   const newCustomerShipment = await prisma.customerShipment.create({
     data: shipment,
@@ -58,7 +66,7 @@ export async function createCustomerShipmentQuery(
 }
 
 export async function createCustomerItemsQuery(
-  items: { productId: string; customerShipmentId: string; quantity: number }[],
+  items: { productId: string; customerShipmentId: string; quantity: number }[]
 ) {
   const newCustomerItems = await prisma.shipmentItem.createMany({
     data: items,
@@ -68,7 +76,7 @@ export async function createCustomerItemsQuery(
 }
 
 export async function updateCustomerShipmentStatusQuery(
-  customerShipmentId: CustomerShipment["id"],
+  customerShipmentId: CustomerShipment["id"]
 ) {
   const updatedCustomerShipment = await prisma.customerShipment.update({
     where: {
@@ -84,7 +92,7 @@ export async function updateCustomerShipmentStatusQuery(
 
 export async function updateCustomerByIdQuery(
   customerId: Customer["id"],
-  customer: CustomerEssentials,
+  customer: CustomerEssentials
 ) {
   const updatedCustomer = await prisma.customer.update({
     where: {
