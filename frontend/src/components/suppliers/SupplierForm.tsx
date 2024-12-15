@@ -12,12 +12,15 @@ import {
   supplierFormSchema,
 } from "@/lib/validations/supplier-validations";
 import { useCreateSupplier } from "@/hooks/mutations/suppliers/useCreateSupplier";
+import { useFontSize } from "@/hooks/useFontSize";
+import { cn } from "@/lib/utils";
 
 type SupplierFormProps = {
   onFormSubmit: () => void;
 };
 
 export default function SupplierForm({ onFormSubmit }: SupplierFormProps) {
+  const { fontSize } = useFontSize();
   const { mutateAsync: createSupplier } = useCreateSupplier();
   const {
     register,
@@ -28,6 +31,12 @@ export default function SupplierForm({ onFormSubmit }: SupplierFormProps) {
     resolver: zodResolver(supplierFormSchema),
   });
 
+  const space: Record<string, { spaceY: string }> = {
+    "text-md": { spaceY: "space-y-6" },
+    "text-lg": { spaceY: "space-y-4" },
+    "text-xl": { spaceY: "space-y-2" },
+  };
+
   async function onSubmit(data: TSupplierFormSchema) {
     await createSupplier(data);
     onFormSubmit();
@@ -35,7 +44,7 @@ export default function SupplierForm({ onFormSubmit }: SupplierFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      <div className="space-y-6">
+      <div className={cn(space[fontSize].spaceY)}>
         <div className="space-y-1">
           <Label htmlFor="name">
             Name <span className="text-red-600">*</span>

@@ -19,12 +19,15 @@ import {
   TTaskFormSchema,
   taskFormSchema,
 } from "@/lib/validations/task-validations";
+import { useFontSize } from "@/hooks/useFontSize";
+import { cn } from "@/lib/utils";
 
 type TaskFormProps = {
   onFormSubmit: () => void;
 };
 
 export default function TaskForm({ onFormSubmit }: TaskFormProps) {
+  const { fontSize } = useFontSize();
   const { mutateAsync: createTask } = useCreateTask();
   const {
     register,
@@ -36,6 +39,12 @@ export default function TaskForm({ onFormSubmit }: TaskFormProps) {
     resolver: zodResolver(taskFormSchema),
   });
 
+  const space: Record<string, { spaceY: string }> = {
+    "text-md": { spaceY: "space-y-6" },
+    "text-lg": { spaceY: "space-y-4" },
+    "text-xl": { spaceY: "space-y-2" },
+  };
+
   async function onSubmit(data: TTaskFormSchema) {
     await createTask(data);
     onFormSubmit();
@@ -43,7 +52,7 @@ export default function TaskForm({ onFormSubmit }: TaskFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      <div className="space-y-6">
+      <div className={cn(space[fontSize].spaceY)}>
         <div className="space-y-1">
           <Label htmlFor="title">
             Title <span className="text-red-600">*</span>
