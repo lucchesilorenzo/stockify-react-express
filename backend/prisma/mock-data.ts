@@ -215,7 +215,7 @@ export const products = [
     vatRate: 22,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder1Date,
   },
   {
@@ -231,7 +231,7 @@ export const products = [
     vatRate: 22,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder1Date,
   },
   {
@@ -247,7 +247,7 @@ export const products = [
     vatRate: 4,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder1Date,
   },
   {
@@ -263,7 +263,7 @@ export const products = [
     vatRate: 4,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder1Date,
   },
   {
@@ -279,7 +279,7 @@ export const products = [
     vatRate: 4,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder2Date,
   },
   {
@@ -295,7 +295,7 @@ export const products = [
     vatRate: 10,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder2Date,
   },
   {
@@ -311,7 +311,7 @@ export const products = [
     vatRate: 22,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder2Date,
   },
   {
@@ -327,7 +327,7 @@ export const products = [
     vatRate: 10,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder2Date,
   },
   {
@@ -343,7 +343,7 @@ export const products = [
     vatRate: 10,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -359,7 +359,7 @@ export const products = [
     vatRate: 4,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -375,7 +375,7 @@ export const products = [
     vatRate: 10,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -391,7 +391,7 @@ export const products = [
     vatRate: 22,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -407,7 +407,7 @@ export const products = [
     vatRate: 4,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder4Date,
   },
   {
@@ -423,7 +423,7 @@ export const products = [
     vatRate: 4,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder4Date,
   },
   {
@@ -439,7 +439,7 @@ export const products = [
     vatRate: 10,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder4Date,
   },
   {
@@ -455,7 +455,7 @@ export const products = [
     vatRate: 22,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder4Date,
   },
   {
@@ -471,7 +471,7 @@ export const products = [
     vatRate: 10,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -487,7 +487,7 @@ export const products = [
     vatRate: 4,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -503,7 +503,7 @@ export const products = [
     vatRate: 22,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
   {
@@ -519,7 +519,7 @@ export const products = [
     vatRate: 10,
     description: null,
     status: "IN_STOCK",
-    image: "/placeholder.svg",
+    image: "uploads/placeholder.svg",
     createdAt: randomOrder3Date,
   },
 ];
