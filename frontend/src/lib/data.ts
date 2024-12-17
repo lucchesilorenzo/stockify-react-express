@@ -54,7 +54,7 @@ export const dashboardData = [
   },
   {
     title: "Shipped Orders",
-    description: "Orders to deliver",
+    description: "Orders to be delivered",
     icon: Truck,
   },
   {

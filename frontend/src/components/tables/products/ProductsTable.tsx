@@ -75,7 +75,7 @@ export default function ProductsTable<TData, TValue>({
               table={table}
               column="category.name"
               id="category-select"
-              placeholder="Select categories"
+              placeholder="Select category"
               defaultOptionLabel="All Categories"
               categoryItems={categories}
               className="w-[100px] md:w-[300px]"
