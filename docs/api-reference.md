@@ -9,19 +9,6 @@
 | Access | Protected |
 | :----- | :-------- |
 
-#### Get single product
-
-```bash
-  GET /api/products/:productId
-```
-
-| Parameter   | Type     | Description                               |
-| :---------- | :------- | :---------------------------------------- |
-| `productId` | `string` | **Required**. ID of the product to fetch. |
-
-| Access | Protected |
-| :----- | :-------- |
-
 #### Get products to restock
 
 ```bash

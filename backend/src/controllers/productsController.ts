@@ -37,27 +37,6 @@ export async function getProducts(req: Request, res: Response) {
   }
 }
 
-// @desc    Get single product
-// @route   GET /api/products/:productId
-// @access  Protected
-export async function getProduct(
-  req: Request<{ productId: unknown }>,
-  res: Response
-) {
-  const validatedProductId = productIdSchema.safeParse(req.params.productId);
-  if (!validatedProductId.success) {
-    res.status(400).json({ message: "Invalid product ID." });
-    return;
-  }
-
-  try {
-    const product = await getProductByIdQuery(validatedProductId.data);
-    res.status(200).json(product);
-  } catch {
-    res.status(500).json({ message: "Failed to get product." });
-  }
-}
-
 // @desc    Get products to restock
 // @route   GET /api/products/to-restock
 // @access  Protected

@@ -4,7 +4,6 @@ import multer from "multer";
 import path from "path";
 import {
   getAvailableProducts,
-  getProduct,
   getProductBySlug,
   getProducts,
   getProductsToRestock,
@@ -38,8 +37,6 @@ router.get("/to-restock", getProductsToRestock);
 router.get("/available", getAvailableProducts);
 
 router.get("/slug/:productSlug", getProductBySlug);
-
-router.get("/:productId", getProduct);
 
 router.patch("/:productId", upload.single("image"), updateProduct);
 router.patch("/:productId/status", updateProductStatus);
