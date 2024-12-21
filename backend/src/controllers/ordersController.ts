@@ -241,13 +241,6 @@ export async function createRestockOrder(
     return;
   }
 
-  // Get category
-  const category = await getCategoryQuery(product.categoryId);
-  if (!category) {
-    res.status(404).json({ message: "Category not found." });
-    return;
-  }
-
   // Check if quantity is valid
   const orderedQuantity = validatedRestockOrder.data.quantity;
   const currentQuantity = options.quantity;

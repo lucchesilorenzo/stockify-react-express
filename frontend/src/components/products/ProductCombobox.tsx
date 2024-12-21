@@ -53,7 +53,7 @@ export default function ProductCombobox({
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
         <Command>
-          <CommandInput placeholder="Search product..." />
+          <CommandInput placeholder="Search a product" />
           <CommandList onWheel={(e) => (e.currentTarget.scrollTop += e.deltaY)}>
             <CommandEmpty>No product found.</CommandEmpty>
             <CommandGroup>
