@@ -6,7 +6,7 @@ import { useOrders } from "@/hooks/queries/useOrders";
 import { formatCurrency, formatOrderId } from "@/lib/utils";
 import { format } from "date-fns";
 import { orderStatuses } from "@/lib/data";
-import Spinner from "@/components/common/spinner";
+import Spinner from "@/components/common/Spinner";
 import H1 from "@/components/common/H1";
 import { useEffect } from "react";
 

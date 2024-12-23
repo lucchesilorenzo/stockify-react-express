@@ -1,4 +1,4 @@
-import Spinner from "@/components/common/spinner";
+import Spinner from "@/components/common/Spinner";
 import ProductEditForm from "@/components/products/product-edit-form/ProductEditForm";
 import { useProduct } from "@/hooks/queries/products/useProduct";
 import { useEffect } from "react";

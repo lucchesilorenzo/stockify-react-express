@@ -3,7 +3,7 @@ import { useCustomers } from "@/hooks/queries/useCustomers";
 import CustomersTable from "../tables/customers/CustomersTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import CustomerShipmentForm from "./customer-shipment-form/CustomerShipmentForm";
-import Spinner from "../common/spinner";
+import Spinner from "../common/Spinner";
 import { columns } from "../tables/customers/columns";
 
 export default function CustomerTabs() {

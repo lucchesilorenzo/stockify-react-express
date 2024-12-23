@@ -1,5 +1,5 @@
 import AuthGuard from "@/components/common/AuthGuard";
-import Spinner from "@/components/common/spinner";
+import Spinner from "@/components/common/Spinner";
 import CustomerProvider from "@/contexts/CustomerProvider";
 import ProductProvider from "@/contexts/ProductProvider";
 import { useMainData } from "@/hooks/queries/useMainData";

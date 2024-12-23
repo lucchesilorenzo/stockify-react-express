@@ -1,4 +1,4 @@
-import AnalyticsInventoryTopProducts from "./AnalyticsInventoryTopProduct";
+import AnalyticsInventoryTopProducts from "./AnalyticsInventoryTopProducts";
 
 type AnalyticsInventoryProps = {
   barChartData: {

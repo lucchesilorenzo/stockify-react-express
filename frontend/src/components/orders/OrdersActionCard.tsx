@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useProductsToRestock } from "@/hooks/queries/products/useProductsToRestock";
-import Spinner from "../common/spinner";
+import Spinner from "../common/Spinner";
 
 export default function OrdersActionCard() {
   const { data: products = [], isLoading } = useProductsToRestock();

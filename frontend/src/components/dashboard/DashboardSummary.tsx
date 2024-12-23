@@ -3,7 +3,7 @@ import DashboardCard from "./DashboardCard";
 
 import { dashboardData } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
-import Spinner from "../common/spinner";
+import Spinner from "../common/Spinner";
 
 export default function DashboardSummary() {
   const [

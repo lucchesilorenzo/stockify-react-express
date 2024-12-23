@@ -1,5 +1,5 @@
 import H1 from "@/components/common/H1";
-import Spinner from "@/components/common/spinner";
+import Spinner from "@/components/common/Spinner";
 import { columns } from "@/components/tables/tasks/columns";
 import TasksTable from "@/components/tables/tasks/TasksTable";
 import { useTasks } from "@/hooks/queries/useTasks";

@@ -1,5 +1,5 @@
 import H1 from "@/components/common/H1";
-import Spinner from "@/components/common/spinner";
+import Spinner from "@/components/common/Spinner";
 import SettingsForm from "@/components/settings/SettingsForm";
 import { Separator } from "@/components/ui/separator";
 import { useSettings } from "@/hooks/queries/useSettings";

@@ -2,7 +2,7 @@ import { useAnalyticsData } from "@/hooks/queries/useAnalyticsData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import AnalyticsInventory from "./AnalyticsInventory";
 import AnalyticsOverview from "./AnalyticsOverview";
-import Spinner from "../common/spinner";
+import Spinner from "../common/Spinner";
 
 export default function AnalyticsTabs() {
   const [
