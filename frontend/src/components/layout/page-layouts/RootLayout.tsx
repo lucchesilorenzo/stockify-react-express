@@ -6,12 +6,7 @@ import { Outlet } from "react-router-dom";
 export default function RootLayout() {
   return (
     <>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
         <FontSizeProvider>
           <Outlet />
         </FontSizeProvider>

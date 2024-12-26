@@ -30,6 +30,7 @@ import {
   TaskPriority,
   TaskStatus,
 } from "./types";
+import { Theme } from "@/contexts/ThemeProvider";
 
 export const routes = [
   { name: "Dashboard", href: "/app/dashboard", icon: Home },
@@ -77,7 +78,11 @@ export const suppliersData = [
   },
 ];
 
-export const themeData = [
+export const themeData: {
+  name: "Light" | "Dark" | "System";
+  value: Theme;
+  icon: React.ElementType;
+}[] = [
   { name: "Light", value: "light", icon: SunIcon },
   { name: "Dark", value: "dark", icon: MoonIcon },
   { name: "System", value: "system", icon: Monitor },

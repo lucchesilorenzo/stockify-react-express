@@ -23,14 +23,14 @@ export default function CustomerInfoFormSelect({
   customers,
   onClearAll,
 }: CustomerInfoFormSelectProps) {
-  const { selectedCustomer, handleSelectCustomer } = useCustomer();
+  const { selectedCustomerId, handleSelectCustomer } = useCustomer();
 
   return (
     <div className="flex items-center gap-x-4">
       {customers.length > 0 && (
         <>
           <Select
-            value={selectedCustomer ?? ""}
+            value={selectedCustomerId ?? ""}
             onValueChange={(value) => handleSelectCustomer(value)}
           >
             <SelectTrigger id="customer-select" className="w-full">
@@ -47,7 +47,7 @@ export default function CustomerInfoFormSelect({
             </SelectContent>
           </Select>
 
-          {selectedCustomer && (
+          {selectedCustomerId && (
             <Button
               onClick={onClearAll}
               variant="outline"

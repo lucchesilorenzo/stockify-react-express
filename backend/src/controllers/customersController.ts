@@ -139,7 +139,10 @@ export async function createCustomerShipment(req: Request, res: Response) {
 
   // Take customer ID from new customer or existing customer
   const customerId = customer?.id || newCustomer?.id;
-  if (!customerId) return;
+  if (!customerId) {
+    res.status(500).json({ message: "Failed to get customer ID." });
+    return;
+  }
 
   // Create customer shipment
   try {

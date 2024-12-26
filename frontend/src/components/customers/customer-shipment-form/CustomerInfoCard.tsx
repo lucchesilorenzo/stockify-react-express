@@ -37,7 +37,7 @@ export default function CustomerInfoCard({
   errors,
   onClearAll,
 }: CustomerInfoCardProps) {
-  const { selectedCustomer } = useCustomer();
+  const { selectedCustomerId } = useCustomer();
 
   return (
     <Card>
@@ -63,7 +63,7 @@ export default function CustomerInfoCard({
               id="firstName"
               placeholder="Enter first name"
               autoComplete="given-name"
-              readOnly={!!selectedCustomer}
+              readOnly={!!selectedCustomerId}
               {...register("firstName")}
             />
             {errors.firstName && (
@@ -81,7 +81,7 @@ export default function CustomerInfoCard({
               id="lastName"
               placeholder="Enter last name"
               autoComplete="family-name"
-              readOnly={!!selectedCustomer}
+              readOnly={!!selectedCustomerId}
               {...register("lastName")}
             />
             {errors.lastName && (
@@ -101,7 +101,7 @@ export default function CustomerInfoCard({
             placeholder="Enter email"
             register={register}
             registerValue="email"
-            readOnly={!!selectedCustomer}
+            readOnly={!!selectedCustomerId}
           />
           {errors.email && (
             <p className="px-1 text-sm text-red-600">{errors.email.message}</p>
@@ -122,7 +122,7 @@ export default function CustomerInfoCard({
                 placeholder="Enter phone number"
                 autoComplete="tel"
                 defaultCountry="IT"
-                readOnly={!!selectedCustomer}
+                readOnly={!!selectedCustomerId}
               />
             )}
           />
@@ -140,7 +140,7 @@ export default function CustomerInfoCard({
             placeholder="Enter address"
             autoComplete="street-address"
             {...register("address")}
-            readOnly={!!selectedCustomer}
+            readOnly={!!selectedCustomerId}
           />
           {errors.address && (
             <p className="px-1 text-sm text-red-600">
@@ -159,7 +159,7 @@ export default function CustomerInfoCard({
               placeholder="Enter city"
               autoComplete="address-level2"
               {...register("city")}
-              readOnly={!!selectedCustomer}
+              readOnly={!!selectedCustomerId}
             />
             {errors.city && (
               <p className="px-1 text-sm text-red-600">{errors.city.message}</p>
@@ -175,7 +175,7 @@ export default function CustomerInfoCard({
               placeholder="Enter zip code"
               autoComplete="postal-code"
               {...register("zipCode")}
-              readOnly={!!selectedCustomer}
+              readOnly={!!selectedCustomerId}
             />
             {errors.zipCode && (
               <p className="px-1 text-sm text-red-600">

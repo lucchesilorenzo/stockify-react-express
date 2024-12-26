@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Brain } from "lucide-react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/hooks/useTheme";
 
 import {
   CommandDialog,

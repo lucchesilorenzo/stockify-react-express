@@ -27,14 +27,14 @@ export default function CustomerShipmentForm({
 }: CustomerShipmentFormProps) {
   const { mutateAsync: createShipment } = useCreateShipment();
   const {
-    selectedCustomer,
+    selectedCustomerId,
     handleSelectCustomer,
     setSelectedProductId,
     setSelectedProducts,
   } = useCustomer();
 
   const selectedCustomerInfo = customers.find(
-    (customer) => customer.id === selectedCustomer,
+    (customer) => customer.id === selectedCustomerId,
   );
 
   const {
